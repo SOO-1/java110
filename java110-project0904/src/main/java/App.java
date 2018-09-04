@@ -2,10 +2,34 @@ import java.util.Scanner;
 
 public class App {
 
-    static String[] name = new String[100];
-    static String[] address = new String[100];
-    static String[] id = new String[100];
+    static class Members{
+
+        private String name;
+        private String address;
+        private String id;
+
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+        public String getAddress() {
+            return address;
+        }
+        public void setAddress(String address) {
+            this.address = address;
+        }
+        public String getId() {
+            return id;
+        }
+        public void setId(String id) {
+            this.id = id;
+        }
+        
+    }
     
+    static Members[] members = new Members[100];
     static Scanner sc = new Scanner(System.in);
     static int index = 0;
 
@@ -21,17 +45,20 @@ public class App {
     {
         while(true)
         {
+            Members m = new Members();
+            
             System.out.println("이름: ");
-            name[index] = sc.nextLine();
+            m.setName(sc.nextLine());
             
             System.out.println("주소: ");
-            address[index] = sc.nextLine();
+            m.setAddress(sc.nextLine());
             
             System.out.println("학번: ");
-            id[index] = sc.nextLine();
+            m.setId(sc.nextLine());
+            
+            members[index] = m;
             
             index++;
-            
             
             System.out.println("계속 입력하시겠습니까? (y/n)");
             String yn = sc.nextLine();
@@ -45,7 +72,7 @@ public class App {
     static void Output()
     {
         for(int i=0; i<index; i++)
-            System.out.printf("%s, %s, %s\n", name[i], address[i], id[i]);
+            System.out.printf("%s, %s, %s\n", members[i].getName(), members[i].getAddress(), members[i].getId());
         
     }
     
