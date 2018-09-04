@@ -5,6 +5,8 @@ public class App {
       
         Scanner sc = new Scanner(System.in);
         
+        while(true)
+        {
         System.out.println("이름: ");
         String name = sc.nextLine();
         
@@ -14,7 +16,15 @@ public class App {
         System.out.println("학번: ");
         String id = sc.nextLine();
         
-        System.out.printf("%s, %s, %s", name, address, id);
+        System.out.printf("%s, %s, %s\n", name, address, id);
+        
+        System.out.println("계속 입력하시겠습니까? (y/n)");
+        String yn = sc.nextLine();
+        
+        if(yn.toLowerCase().equals("n"))
+            break;
+        
+        }
         
     }
 }
