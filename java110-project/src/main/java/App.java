@@ -30,11 +30,6 @@ public class App {
         }
         
     }
-    
-/*    static String[] names = new String[100];        //클래스변수
-    static String[] emails = new String[100];
-    static String[] passwords = new String [100];
-*/    
     static Member[] members = new Member[100];
     static int index = 0;
     
@@ -43,13 +38,77 @@ public class App {
     
     
     public static void main(String[] args) {
+    
         
-        inputMembers();
-        printMembers();
-        // 2) 사용자로부터 회원 정보 입력받기
-                
+     while(true) {
+        String menu = promptMenu();   //사용자로부터 메뉴를 입력 받기
+        
+        if(menu.equals("1")) {
+          
+            serviceStudentMenu();
+            
+        }else if(menu.equals("0")){
+            System.out.println("안녕히가세요!");
+        }else {
+            break;
+        }
+     }
         keyIn.close();
         
+    }
+
+    private static void serviceStudentMenu() {
+        while(true) {
+            System.out.println("학생 관리>");
+            String command = keyIn.nextLine();              
+        
+        if(command.equals("list")) {
+            printMembers();
+        }else if(command.equals("add")) {
+            inputMembers();
+        }else if(command.equals("quit")) {
+            break;
+        }else {
+            System.out.println("유효하지 않은 명령입니다.");
+        }
+        
+        
+         }
+    }
+
+    private static String promptMenu() {
+        System.out.println("[메뉴]");
+        System.out.println("1. 학생 관리");
+        System.out.println("2. 강사 관리");
+        System.out.println("3. 매니저 관리");
+        System.out.println("0. 종료");
+        
+        while(true) {
+        System.out.print("메뉴 번호> ");
+        
+        String menu = keyIn.nextLine();
+//        System.out.println(menu);
+        
+        switch(menu) {  //case에 도달한 후 break 또는 return을 만나기 전까지 밑으로 쭉 내려감.
+        case "1":
+        case "2":
+        case "3":
+        case "0":
+            return menu;
+        default:
+                System.out.println("메뉴 번호가 유효하지 않습니다.");
+            }
+        }
+        
+/*        if(menu.equals("1"))
+        {
+            inputMembers();        // 2) 사용자로부터 회원 정보 입력받기            
+            printMembers();
+        }else
+        {
+            System.out.println("메뉴 번호가 유효하지 않습니다.");
+        }
+*/        
     }
         
     static void printMembers() {
