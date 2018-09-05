@@ -1,3 +1,4 @@
+package bitcamp.java110.cms.domain;
 
 public class Member {
     protected String name;      //field(변수지칭)

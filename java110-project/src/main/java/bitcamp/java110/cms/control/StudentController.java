@@ -1,10 +1,14 @@
+package bitcamp.java110.cms.control;
+
 import java.util.Scanner;
+
+import bitcamp.java110.cms.domain.Member;
 
 public class StudentController {
 
-        static Scanner keyIn = new Scanner(System.in);
+        public static Scanner keyIn = new Scanner(System.in);
         
-        static class Student extends Member{
+       private static class Student extends Member{
             protected String school;
             protected boolean working;
             protected String tel;
@@ -33,10 +37,10 @@ public class StudentController {
         
         
         
-        static Student[] students = new Student[100];
+        static Student[] students = new Student[5];
         static int studentIndex = 0;
 
-        static void serviceStudentMenu() {
+        public static void serviceStudentMenu() {
             while(true) {
                 System.out.println("학생 관리>");
                 String command = keyIn.nextLine();              
@@ -45,6 +49,10 @@ public class StudentController {
                 printStudents();
             }else if(command.equals("add")) {
                 inputStudents();
+            }else if(command.equals("delete")) {
+                deleteStudent();
+            }else if(command.equals("detail")) {
+                detailStudent();
             }else if(command.equals("quit")) {
                 break;
             }else {
@@ -55,12 +63,14 @@ public class StudentController {
              }
         }
         
-        static void printStudents() {
+        private static void printStudents() {
             int count = 0;
             for(Student s : students) {
                 if(count++ == studentIndex)
                     break;
-            System.out.printf("%s, %s, %s, %s, %b, %s\n", 
+                int no = count;
+            System.out.printf("%d: %s, %s, %s, %s, %b, %s\n",
+                    --no,
                     s.getName(),
                     s.getEmail(), 
                     s.getPassword(),
@@ -71,7 +81,7 @@ public class StudentController {
         }
         
 
-        static void inputStudents() {
+        private static void inputStudents() {
 
             while(true)
             {
@@ -98,7 +108,11 @@ public class StudentController {
                 System.out.print("전화? ");
                 m.setTel(keyIn.nextLine());
                 
-                
+                //배열 크기 늘리기 => 주석이 있다는 건 refactoring의 대상!
+                if(studentIndex == students.length) {
+                    increaseStorage();
+                }
+                                  
                 students[studentIndex++] = m;   //index에 넣고 , index값을 이후에 증가시킴.
 //                index++;
                 
@@ -110,7 +124,81 @@ public class StudentController {
             
         }
 
+        private static void increaseStorage() {
+            Student[] newList = new Student[students.length+3];
+            for(int i=0; i<students.length; i++) {
+                newList[i] = students[i];
+            }
+            students = newList;
+        }
 
+        
+        private static void deleteStudent()
+        {
+            System.out.print("삭제할 번호? ");
+            int no = Integer.parseInt(keyIn.nextLine());
+
+            if(no < 0 || no >= studentIndex) {
+                System.out.println("무효한 번호 입니다.");
+                return;
+            }
+
+            for(int i=no; i<studentIndex-1; i++){
+                students[i] = students[i+1];
+            }
+            studentIndex--;
+            
+            System.out.println("삭제하였습니다.");
+            
+/*            if(no >= 0 && no < studentIndex) {
+                for(int i=no; i<studentIndex-2; i++){
+                    students[i] = students[i+1];
+                }
+                studentIndex--;
+            }
+*/            
+        }
+        
+        private static void detailStudent() {
+            System.out.print("조회할 번호? ");
+            int no = Integer.parseInt(keyIn.nextLine());
+            
+            if(no<0 || no>= studentIndex) {
+                System.out.println("무효한 번호입니다.");
+                return;
+            }
+            
+            System.out.printf("이름: %s\n", students[no].getName());
+            System.out.printf("이메일: %s\n", students[no].getEmail());
+            System.out.printf("암호: %s\n", students[no].getPassword());
+            System.out.printf("최종학력: %s\n", students[no].getSchool());
+            System.out.printf("전화: %s\n", students[no].getTel());
+            System.out.printf("재직여부: %b\n", students[no].isWorking());
+            
+        }
+        
+        static {    //초기화
+            Student s = new Student();
+            s.setName("a");
+            students[studentIndex++] = s;
+            
+            s = new Student();
+            s.setName("b");
+            students[studentIndex++] = s;
+
+            s = new Student();
+            s.setName("c");
+            students[studentIndex++] = s;
+
+            s = new Student();
+            s.setName("d");
+            students[studentIndex++] = s;
+
+            s = new Student();
+            s.setName("e");
+            students[studentIndex++] = s;
+
+        }
     
 
 }

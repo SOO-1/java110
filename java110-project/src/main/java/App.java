@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+import bitcamp.java110.cms.control.ManagerController;
+import bitcamp.java110.cms.control.StudentController;
+import bitcamp.java110.cms.control.TeacherController;
+
 public class App {    
     
     // 1)키보드 입력을 처리할 객체 준비
