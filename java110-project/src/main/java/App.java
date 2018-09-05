@@ -30,7 +30,40 @@ public class App {
         }
         
     }
-    static Member[] members = new Member[100];
+    
+    static class Student extends Member{
+        protected String school;
+        protected boolean working;
+        protected String tel;
+        
+        public String getSchool() {
+            return school;
+        }
+        public void setSchool(String school) {
+            this.school = school;
+        }
+        public boolean isWorking() {    //boolean의 get은 is로!
+            return working;
+        }
+        public void setWorking(boolean working) {
+            this.working = working;
+        }
+        public String getTel() {
+            return tel;
+        }
+        public void setTel(String tel) {
+            this.tel = tel;
+        }
+        
+        
+    }
+    
+/*    static String[] names = new String[100];        //클래스변수
+    static String[] emails = new String[100];
+    static String[] passwords = new String [100];
+*/    
+//    static Student[] students = new Student[100];
+    static Student[] students = new Student[100];
     static int index = 0;
     
     // 1)키보드 입력을 처리할 객체 준비
@@ -63,9 +96,9 @@ public class App {
             String command = keyIn.nextLine();              
         
         if(command.equals("list")) {
-            printMembers();
+            printStudents();
         }else if(command.equals("add")) {
-            inputMembers();
+            inputStudents();
         }else if(command.equals("quit")) {
             break;
         }else {
@@ -111,17 +144,27 @@ public class App {
 */        
     }
         
-    static void printMembers() {
-        for(int i=0; i<index; i++)
-        System.out.printf("%s, %s, %s\n", members[i].getName(), members[i].getEmail(), members[i].getPassword());        
+    static void printStudents() {
+        int count = 0;
+        for(Student s : students) {
+            if(count++ == index)
+                break;
+        System.out.printf("%s, %s, %s, %s, %s, %s\n", 
+                s.getName(),
+                s.getEmail(), 
+                s.getPassword(),
+                s.getSchool(),
+                s.isWorking(),
+                s.getTel()); 
+        }
     }
 
-    static void inputMembers() {
+    static void inputStudents() {
 
         while(true)
         {
 //            members[index] = new Member();
-            Member m = new Member();
+            Student m = new Student();
             
             System.out.print("이름? ");
             m.setName(keyIn.nextLine());
@@ -133,8 +176,18 @@ public class App {
         
             System.out.print("암호? ");
             m.setPassword(keyIn.nextLine());
+
+            System.out.print("최종학력? ");
+            m.setSchool(keyIn.nextLine());
+
+            System.out.print("재직여부? (true/false) ");
+            m.setWorking(Boolean.parseBoolean(keyIn.nextLine()));
+
+            System.out.print("전화? ");
+            m.setTel(keyIn.nextLine());
             
-            members[index++] = m;   //index에 넣고 , index값을 이후에 증가시킴.
+            
+            students[index++] = m;   //index에 넣고 , index값을 이후에 증가시킴.
 //            index++;
             
             System.out.println("계속 하시겠습니까? (Y/n)"); //둘중 하나가 대문자라면 그 값이 기본값!(enter만해도 Y로 인식)
