@@ -1,7 +1,7 @@
 package bitcamp.java110.cms.List;
 
 //import bitcamp.java110.cms.control.StudentController.Student;
-import bitcamp.java110.cms.domain.Member;
+//import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Student;
 
 public class StudentList{
