@@ -3,16 +3,17 @@ package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Teacher;
-import bitcamp.java110.cms.util.ArrayList;
-import bitcamp.java110.cms.util.LinkedList;
+import bitcamp.java110.cms.util.List;
 
 public class TeacherController {
     
-    private LinkedList<Teacher> teachers = new LinkedList<>();
+    private List<Teacher> teachers;
     public Scanner keyIn = new Scanner(System.in);    
     
-    public TeacherController(Scanner keyIn) {
+    public TeacherController(Scanner keyIn, List<Teacher> teachers) {
         this.keyIn = keyIn;
+        this.teachers = teachers;
+        init();
     }
     
     public void serviceTeacherMenu() {
@@ -136,7 +137,7 @@ public class TeacherController {
         
     }
     
-    {    //초기화
+    private void init(){    //초기화
         Teacher s = new Teacher();
         s.setName("a");
         teachers.add(s);

@@ -3,16 +3,17 @@ package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Manager;
-import bitcamp.java110.cms.util.ArrayList;
-import bitcamp.java110.cms.util.LinkedList;
+import bitcamp.java110.cms.util.List;
 
 public class ManagerController {
     
-    private LinkedList<Manager> managers = new LinkedList<>();
+    private List<Manager> managers;
     public Scanner keyIn = new Scanner(System.in);
     
-    public ManagerController(Scanner keyIn) {
+    public ManagerController(Scanner keyIn, List<Manager> managers) {
         this.keyIn = keyIn;
+        this.managers = managers;
+        init();
     }
    
     public void serviceManagerMenu() {
@@ -125,7 +126,7 @@ public class ManagerController {
         
     }
     
-    {    //초기화
+    private void init(){    //초기화
         Manager s = new Manager();
         s.setName("a");
         managers.add(s);

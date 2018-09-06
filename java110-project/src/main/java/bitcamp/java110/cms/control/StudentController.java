@@ -3,15 +3,17 @@ package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Student;
-import bitcamp.java110.cms.util.LinkedList;
+import bitcamp.java110.cms.util.List;
 
 public class StudentController {
 
-        private LinkedList<Student> students = new LinkedList<>();//jdk8부터는 생략가능
+        private List<Student> students;//jdk8부터는 생략가능
         public Scanner keyIn;
         
-        public StudentController(Scanner keyIn) {
+        public StudentController(Scanner keyIn, List<Student> students) {
             this.keyIn = keyIn;
+            this.students = students;
+            init();
         }
         
         public void serviceStudentMenu() {
@@ -133,7 +135,7 @@ public class StudentController {
             
         }
         
-         {    //인스턴스블록  생성자보다 먼저 실행됨.
+         private void init(){    //인스턴스블록  생성자보다 먼저 실행됨.
             Student s = new Student();
             s.setName("a");
             students.add(s);

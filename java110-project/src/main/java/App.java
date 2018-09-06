@@ -3,6 +3,11 @@ import java.util.Scanner;
 import bitcamp.java110.cms.control.ManagerController;
 import bitcamp.java110.cms.control.StudentController;
 import bitcamp.java110.cms.control.TeacherController;
+import bitcamp.java110.cms.domain.Manager;
+import bitcamp.java110.cms.domain.Student;
+import bitcamp.java110.cms.domain.Teacher;
+import bitcamp.java110.cms.util.ArrayList;
+import bitcamp.java110.cms.util.LinkedList;
 
 public class App {    
     
@@ -15,11 +20,14 @@ public class App {
         //반드시 넣어야 할 것을 생성자에 넣음으로서, 생성자를 만들 때 필요한 것들을 넣지 않으면
         //객체를 생성하지 못하도록.
         //필수값을 넣게 하는게 생성자.
-        StudentController sc = new StudentController(keyIn);
+        StudentController sc = new StudentController(keyIn
+                , new LinkedList<Student>());
 //        sc.keyIn = keyIn;
-        TeacherController tc = new TeacherController(keyIn);
+        TeacherController tc = new TeacherController(keyIn
+                , new ArrayList<Teacher>());
         
-        ManagerController mc = new ManagerController(keyIn);
+        ManagerController mc = new ManagerController(keyIn
+                , new ArrayList<Manager>());
         
      while(true) {
         String menu = promptMenu();   //사용자로부터 메뉴를 입력 받기
