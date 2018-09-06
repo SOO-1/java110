@@ -12,21 +12,26 @@ public class App {
     
     public static void main(String[] args) {
     
-        StudentController.keyIn = keyIn;
-        TeacherController.keyIn = keyIn;
-        ManagerController.keyIn = keyIn;
+        //반드시 넣어야 할 것을 생성자에 넣음으로서, 생성자를 만들 때 필요한 것들을 넣지 않으면
+        //객체를 생성하지 못하도록.
+        //필수값을 넣게 하는게 생성자.
+        StudentController sc = new StudentController(keyIn);
+//        sc.keyIn = keyIn;
+        TeacherController tc = new TeacherController(keyIn);
+        
+        ManagerController mc = new ManagerController(keyIn);
         
      while(true) {
         String menu = promptMenu();   //사용자로부터 메뉴를 입력 받기
         
         if(menu.equals("1")) {
           
-            StudentController.serviceStudentMenu();
+            sc.serviceStudentMenu();
             
         }else if(menu.equals("2")){
-            TeacherController.serviceTeacherMenu();
+            tc.serviceTeacherMenu();
         }else if(menu.equals("3")){
-            ManagerController.serviceManagerMenu();
+            mc.serviceManagerMenu();
         }else if(menu.equals("0")){
             System.out.println("안녕히가세요!");
             break;
