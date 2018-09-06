@@ -7,7 +7,7 @@ import bitcamp.java110.cms.util.ArrayList;
 
 public class TeacherController {
     
-    private ArrayList teachers = new ArrayList();
+    private ArrayList<Teacher> teachers = new ArrayList<>();
     public Scanner keyIn = new Scanner(System.in);    
     
     public TeacherController(Scanner keyIn) {
@@ -42,7 +42,7 @@ public class TeacherController {
     private void printTeachers() {
 
         for(int i=0; i<teachers.size(); i++) {
-            Teacher s = (Teacher)teachers.get(i);
+            Teacher s = teachers.get(i);
         System.out.printf("%d: %s, %s, %s, %s, %d, %s\n",
                 i,
                 s.getName(),
@@ -124,7 +124,7 @@ public class TeacherController {
             return;
         }
         
-        Teacher teacher = (Teacher)teachers.get(no);
+        Teacher teacher = teachers.get(no);
         
         System.out.printf("이름: %s\n", teacher.getName());
         System.out.printf("이메일: %s\n", teacher.getEmail());
