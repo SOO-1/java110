@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Teacher;
 import bitcamp.java110.cms.util.ArrayList;
+import bitcamp.java110.cms.util.LinkedList;
 
 public class TeacherController {
     
-    private ArrayList<Teacher> teachers = new ArrayList<>();
+    private LinkedList<Teacher> teachers = new LinkedList<>();
     public Scanner keyIn = new Scanner(System.in);    
     
     public TeacherController(Scanner keyIn) {

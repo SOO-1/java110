@@ -3,11 +3,11 @@ package bitcamp.java110.cms.control;
 import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Student;
-import bitcamp.java110.cms.util.ArrayList;
+import bitcamp.java110.cms.util.LinkedList;
 
 public class StudentController {
 
-        private ArrayList<Student> students = new ArrayList<>();//jdk8부터는 생략가능
+        private LinkedList<Student> students = new LinkedList<>();//jdk8부터는 생략가능
         public Scanner keyIn;
         
         public StudentController(Scanner keyIn) {
