@@ -15,7 +15,6 @@ public class ApplicationContext {
         String path = packageName.replace(".", "/");
 
         //패키지 경로를 가지고 전체 파일 경로를 알아낸다.
-        //File file = Resources.getesourceasfile(path);
         File file = Resources.getResourceAsFile(path);
         System.out.println(file.getAbsolutePath());
         
