@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import bitcamp.java110.cms.context.ApplicationContext;
 import bitcamp.java110.cms.control.Controller;
 import bitcamp.java110.cms.control.ManagerController;
 import bitcamp.java110.cms.control.StudentController;
@@ -17,20 +18,10 @@ public class App{
     static Scanner keyIn = new Scanner(System.in); //scanner는 쓴 후에 닫아야 함.
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
     
         
-        //key , value
-        HashMap<String, Controller> requestHandlerMapping = new HashMap<>();
-        
-        //반드시 넣어야 할 것을 생성자에 넣음으로서, 생성자를 만들 때 필요한 것들을 넣지 않으면
-        //객체를 생성하지 못하도록.
-        //필수값을 넣게 하는게 생성자.
-        requestHandlerMapping.put("1", new StudentController(new LinkedList<Student>()));
-//        sc.keyIn = keyIn;
-        requestHandlerMapping.put("2", new TeacherController(new ArrayList<Teacher>()));
-        
-        requestHandlerMapping.put("3", new ManagerController(new ArrayList<Manager>()));
+        ApplicationContext iocContainer = new ApplicationContext("bitcamp.java110.cms.control");
         
      while(true) {
         String menu = promptMenu();   //사용자로부터 메뉴를 입력 받기
@@ -40,7 +31,7 @@ public class App{
             break;
         }
         
-        Controller controller = requestHandlerMapping.get(menu);
+        Controller controller = (Controller)iocContainer.getBean(menu);
         
         if(controller != null) {
           
