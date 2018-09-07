@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import bitcamp.java110.cms.control.Controller;
 import bitcamp.java110.cms.control.ManagerController;
 import bitcamp.java110.cms.control.StudentController;
 import bitcamp.java110.cms.control.TeacherController;
@@ -9,7 +11,7 @@ import bitcamp.java110.cms.domain.Manager;
 import bitcamp.java110.cms.domain.Student;
 import bitcamp.java110.cms.domain.Teacher;
 
-public class App {    
+public class App{    
     
     // 1)키보드 입력을 처리할 객체 준비
     static Scanner keyIn = new Scanner(System.in); //scanner는 쓴 후에 닫아야 함.
@@ -17,32 +19,35 @@ public class App {
     
     public static void main(String[] args) {
     
+        
+        //key , value
+        HashMap<String, Controller> requestHandlerMapping = new HashMap<>();
+        
         //반드시 넣어야 할 것을 생성자에 넣음으로서, 생성자를 만들 때 필요한 것들을 넣지 않으면
         //객체를 생성하지 못하도록.
         //필수값을 넣게 하는게 생성자.
-        StudentController sc = new StudentController(keyIn
-                , new LinkedList<Student>());
+        requestHandlerMapping.put("1", new StudentController(new LinkedList<Student>()));
 //        sc.keyIn = keyIn;
-        TeacherController tc = new TeacherController(keyIn
-                , new ArrayList<Teacher>());
+        requestHandlerMapping.put("2", new TeacherController(new ArrayList<Teacher>()));
         
-        ManagerController mc = new ManagerController(keyIn
-                , new ArrayList<Manager>());
+        requestHandlerMapping.put("3", new ManagerController(new ArrayList<Manager>()));
         
      while(true) {
         String menu = promptMenu();   //사용자로부터 메뉴를 입력 받기
         
-        if(menu.equals("1")) {
-          
-            sc.serviceStudentMenu();
-            
-        }else if(menu.equals("2")){
-            tc.serviceTeacherMenu();
-        }else if(menu.equals("3")){
-            mc.serviceManagerMenu();
-        }else if(menu.equals("0")){
-            System.out.println("안녕히가세요!");
+        if(menu.equals("0")){
+            System.out.println("안녕히 가세요!");
             break;
+        }
+        
+        Controller controller = requestHandlerMapping.get(menu);
+        
+        if(controller != null) {
+          
+            controller.service(keyIn);
+            
+        }else{
+            System.out.println("해당 메뉴가 없습니다.");
         }
      }
         keyIn.close();

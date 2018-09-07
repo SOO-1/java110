@@ -5,30 +5,29 @@ import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Teacher;
 
-public class TeacherController {
+public class TeacherController implements Controller{
     
-    private List<Teacher> teachers;
-    public Scanner keyIn = new Scanner(System.in);    
+    private List<Teacher> teachers; 
     
-    public TeacherController(Scanner keyIn, List<Teacher> teachers) {
-        this.keyIn = keyIn;
+    public TeacherController(List<Teacher> teachers) {
+
         this.teachers = teachers;
         init();
     }
     
-    public void serviceTeacherMenu() {
+    public void service(Scanner keyIn) {        //keyIn - parameter
         while(true) {
             System.out.println("강사 관리>");
             String command = keyIn.nextLine();              
         
         if(command.equals("list")) {
-            printTeachers();
+            printTeachers(keyIn);             //keyIn - argument
         }else if(command.equals("add")) {
-            inputTeachers();
+            inputTeachers(keyIn);
         }else if(command.equals("delete")) {
-            deleteTeacher();
+            deleteTeacher(keyIn);
         }else if(command.equals("detail")) {
-            detailTeacher();
+            detailTeacher(keyIn);
         }else if(command.equals("quit")) {
             break;
         }else {
@@ -41,7 +40,7 @@ public class TeacherController {
      
     
     
-    private void printTeachers() {
+    private void printTeachers(Scanner keyIn) {
 
         for(int i=0; i<teachers.size(); i++) {
             Teacher s = teachers.get(i);
@@ -57,7 +56,7 @@ public class TeacherController {
     }
     
     
-    private void inputTeachers() {
+    private void inputTeachers(Scanner keyIn) {
 
         while(true)
         {
@@ -94,7 +93,7 @@ public class TeacherController {
         
     }
  
-    private void deleteTeacher()
+    private void deleteTeacher(Scanner keyIn)
     {
         System.out.print("삭제할 번호? ");
         int no = Integer.parseInt(keyIn.nextLine());
@@ -117,7 +116,7 @@ public class TeacherController {
 */            
     }
     
-    private void detailTeacher() {
+    private void detailTeacher(Scanner keyIn) {
         System.out.print("조회할 번호? ");
         int no = Integer.parseInt(keyIn.nextLine());
         
