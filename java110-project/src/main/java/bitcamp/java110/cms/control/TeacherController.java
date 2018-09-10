@@ -1,164 +1,113 @@
 package bitcamp.java110.cms.control;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import bitcamp.java110.cms.domain.Teacher;
 
-public class TeacherController implements Controller{
+// name="2"
+public class TeacherController implements Controller {
     
-    private List<Teacher> teachers; 
+    public String name = "2";
+    private List<Teacher> teachers = new ArrayList<>();
     
-    public TeacherController(List<Teacher> teachers) {
-
-        this.teachers = teachers;
-        init();
-    }
-    
-    public void service(Scanner keyIn) {        //keyIn - parameter
-        while(true) {
-            System.out.println("강사 관리>");
-            String command = keyIn.nextLine();              
-        
-        if(command.equals("list")) {
-            printTeachers(keyIn);             //keyIn - argument
-        }else if(command.equals("add")) {
-            inputTeachers(keyIn);
-        }else if(command.equals("delete")) {
-            deleteTeacher(keyIn);
-        }else if(command.equals("detail")) {
-            detailTeacher(keyIn);
-        }else if(command.equals("quit")) {
-            break;
-        }else {
-            System.out.println("유효하지 않은 명령입니다.");
+    public void service(Scanner keyIn) {
+        while (true) {
+            System.out.print("강사 관리> ");
+            String command = keyIn.nextLine();
+            if (command.equals("list")) {
+                printTeachers();
+            } else if (command.equals("add")) {
+                inputTeachers(keyIn);
+            } else if (command.equals("delete")) {
+                deleteTeacher(keyIn);
+            } else if (command.equals("detail")) {
+                detailTeacher(keyIn);
+            } else if (command.equals("quit")) {
+                break;
+            } else {
+                System.out.println("유효하지 않는 명령입니다.");
+            }
         }
-        
-        
-         }
     }
-     
     
-    
-    private void printTeachers(Scanner keyIn) {
-
-        for(int i=0; i<teachers.size(); i++) {
+    private void printTeachers() {
+        for (int i = 0; i < teachers.size(); i++) {
             Teacher s = teachers.get(i);
-        System.out.printf("%d: %s, %s, %s, %s, %d, %s\n",
-                i,
-                s.getName(),
-                s.getEmail(), 
-                s.getPassword(),
-                s.getTel(),
-                s.getPay(),
-                s.getSubjects()); 
+            System.out.printf("%d: %s, %s, %s, %s, %d, [%s]\n",
+                    i,
+                    s.getName(), 
+                    s.getEmail(), 
+                    s.getPassword(), 
+                    s.getTel(),
+                    s.getPay(),
+                    s.getSubjects());
         }
     }
-    
     
     private void inputTeachers(Scanner keyIn) {
-
-        while(true)
-        {
-//            members[index] = new Member();
+        while (true) {
             Teacher m = new Teacher();
             
             System.out.print("이름? ");
             m.setName(keyIn.nextLine());
-//            memgers[index].setName(keyIn.nextLine());
-//            names[index] = keyIn.nextLine();   //사용자가 한줄을 입력햇을 때 비로소 nextLine은 string을 return한다.
-                                            //호출하자마자 return하는것 X
+            
             System.out.print("이메일? ");
             m.setEmail(keyIn.nextLine());
-        
+            
             System.out.print("암호? ");
             m.setPassword(keyIn.nextLine());
-
+            
             System.out.print("전화? ");
             m.setTel(keyIn.nextLine());
-
+            
             System.out.print("시급? ");
             m.setPay(Integer.parseInt(keyIn.nextLine()));
-
-            System.out.print("강의과목? (예 : 자바, C, C++) ");
+            
+            System.out.print("강의과목?(예: 자바,C,C++) ");
             m.setSubjects(keyIn.nextLine());
             
             teachers.add(m);
             
-            System.out.println("계속 하시겠습니까? (Y/n)"); //둘중 하나가 대문자라면 그 값이 기본값!(enter만해도 Y로 인식)
+            System.out.print("계속 하시겠습니까?(Y/n) ");
             String answer = keyIn.nextLine();
-            if(answer.toLowerCase().equals("n"))    //return값에 대해 equals메서드 호출
+            if (answer.toLowerCase().equals("n"))
                 break;
         }
-        
     }
- 
-    private void deleteTeacher(Scanner keyIn)
-    {
+    
+    private void deleteTeacher(Scanner keyIn) {
         System.out.print("삭제할 번호? ");
         int no = Integer.parseInt(keyIn.nextLine());
-
-        if(no < 0 || no >= teachers.size()) {
-            System.out.println("무효한 번호 입니다.");
+        
+        if (no < 0 || no >= teachers.size()) {
+            System.out.println("무효한 번호입니다.");
             return;
         }
-
+        
         teachers.remove(no);
         
         System.out.println("삭제하였습니다.");
-        
-/*            if(no >= 0 && no < TeacherIndex) {
-            for(int i=no; i<TeacherIndex-2; i++){
-                Teachers[i] = Teachers[i+1];
-            }
-            TeacherIndex--;
-        }
-*/            
     }
     
     private void detailTeacher(Scanner keyIn) {
         System.out.print("조회할 번호? ");
         int no = Integer.parseInt(keyIn.nextLine());
         
-        if(no<0 || no>= teachers.size()) {
+        if (no < 0 || no >= teachers.size()) {
             System.out.println("무효한 번호입니다.");
             return;
         }
         
-        Teacher teacher = teachers.get(no);
+        Teacher t = teachers.get(no);
         
-        System.out.printf("이름: %s\n", teacher.getName());
-        System.out.printf("이메일: %s\n", teacher.getEmail());
-        System.out.printf("암호: %s\n", teacher.getPassword());
-        System.out.printf("전화: %s\n", teacher.getTel());
-        System.out.printf("시급: %d\n", teacher.getPay());
-        System.out.printf("강의 과목: %s\n", teacher.getSubjects());
-        
+        System.out.printf("이름: %s\n", t.getName());
+        System.out.printf("이메일: %s\n", t.getEmail());
+        System.out.printf("암호: %s\n", t.getPassword());
+        System.out.printf("전화: %s\n", t.getTel());
+        System.out.printf("시급: %d\n", t.getPay());
+        System.out.printf("강의과목: %s\n", t.getSubjects());
     }
-    
-    private void init(){    //초기화
-        Teacher s = new Teacher();
-        s.setName("a");
-        teachers.add(s);
-        
-        s = new Teacher();
-        s.setName("b");
-        teachers.add(s);
-        
-        s = new Teacher();
-        s.setName("c");
-        teachers.add(s);
-        
-        s = new Teacher();
-        s.setName("d");
-        teachers.add(s);
-        
-        s = new Teacher();
-        s.setName("e");
-        teachers.add(s);
-        
-    }
-
-    
-
 }
+
