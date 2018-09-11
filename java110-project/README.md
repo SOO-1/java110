@@ -3,7 +3,22 @@
 비트캠프 자바110기 실습 프로젝트
 
 ##tag:v02.0
-- QueryString 적용
+- DAO에 파일 입출력 도입
+- DAO에 인터페이스 적용
+- 작업
+    - DAO에 데이터를 파일로 저장하고 읽는 기능 추가
+
+##tag:v02.1
+- ObjectOutputStream/ObjectInputStream
+- 객체 Serialize/Deserialize 적용
+- java.io.Serializable 인터페이스 활용
+- transient modifier 사용법
+
+##tag:v02.0
+- DAO에 파일 입출력 도입
+- DAO에 인터페이스 적용
+- 작업
+    - DAO에 데이터를 파일로 저장하고 읽는 기능 추가
 
 ##tag:v01.9
 - IoC 컨테이너가 객체 생성 후에 수행하는 작업을 필드의 클래스로 분리한다.
