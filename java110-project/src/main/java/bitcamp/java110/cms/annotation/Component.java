@@ -1,7 +1,9 @@
 package bitcamp.java110.cms.annotation;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /*
  * 에너테이션 유지 정책
@@ -14,6 +16,7 @@ import java.lang.annotation.RetentionPolicy;
  * */
 
 //value값 단 한개만 설정하고, 이름이 value일 경우에만 생략 가능! (value = RetentionPolicy.CLASS)
+@Target(ElementType.TYPE) //제약을 줄 수 있다.
 @Retention(RetentionPolicy.RUNTIME)   //컴파일 한 후, .class파일에 남겨둔다.
 public @interface Component {
     String value() default "";  //변수선언하지않아도 기본값을 ""
