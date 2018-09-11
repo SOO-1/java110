@@ -4,10 +4,13 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 import bitcamp.java110.cms.annotation.Autowired;
+import bitcamp.java110.cms.annotation.Component;
 
 // @Component를 하지 않았기 때문에 직접 new를 통해 객체 생성해줘야함. 
 // Autowired Annotation을 처리 할 아이인데 bean생성 후에 동작
-public class AutowiredAnnotationBeanPostProcessor {
+@Component
+public class AutowiredAnnotationBeanPostProcessor 
+                            implements BeanPostProcessor{
 
     ApplicationContext beanContainer;
 

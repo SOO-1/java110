@@ -31,14 +31,9 @@ public class ApplicationContext {
         // 클래스에 대해 인스턴스를 생성하여 objPool에 보관한다.
         createInstance();
         
-        // injectDependency() 메서드를 외부 클래스로 분리한 다음에
-        // 그 객체를 실행한다.
-        AutowiredAnnotationBeanPostProcessor processor =
-                new AutowiredAnnotationBeanPostProcessor();
-        processor.postProcess(this);    //callBeanPostProcessor() 대신 가능
-        
-        // 객체 생성 후 작업을 수행하는 클래스가 있다면 찾아서 호출한다.
-//        callBeanPostProcessor();
+        // 객체 생성 후 실행 할 작업이 있다면, 
+        // BeanPostProcessor 구현체를 찾아 실행한다.
+        callBeanPostProcessor();
         
     }
     
@@ -66,7 +61,7 @@ public class ApplicationContext {
         return names;
     }
     
-    private void findClass(File path, String packagePath){
+    private void findClass(File path, String packagePath) throws Exception{
         File[] files = path.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
@@ -126,22 +121,22 @@ public class ApplicationContext {
     }
     
 
-/*    private void callBeanPostProcessor() {
+    private void callBeanPostProcessor() {
         Collection<Object> objList = objPool.values();
         
         // => objPool에 보관된 객체 중에서 BeanPostProcessor 규칙을
         // 준수하는 객체를 찾는다.
         for(Object obj : objList) {
-            if(BeanPostProcessor.class.isInstance(obj)) continue;
+            if(!BeanPostProcessor.class.isInstance(obj)) continue;
             
-            BeanPostProcessor processor = (BeanPostProcessor) obj;
+            BeanPostProcessor processor = (BeanPostProcessor)obj;
             processor.postProcess(this);
             
             
         }
     }
 
-*/
+
     
     
     
