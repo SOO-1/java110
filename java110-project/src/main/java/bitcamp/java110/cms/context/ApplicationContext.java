@@ -2,7 +2,6 @@ package bitcamp.java110.cms.context;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ import java.util.Set;
 
 import org.apache.ibatis.io.Resources;
 
-import bitcamp.java110.cms.annotation.Autowired;
 import bitcamp.java110.cms.annotation.Component;
 
 public class ApplicationContext {
@@ -33,9 +31,14 @@ public class ApplicationContext {
         // 클래스에 대해 인스턴스를 생성하여 objPool에 보관한다.
         createInstance();
         
-        // objPool에 보관된 객체를 꺼내 @Autowired 가 붙은 setter를 찾아 호출한다.
-        // => 의존 객체 주입
-        injectDependency();
+        // injectDependency() 메서드를 외부 클래스로 분리한 다음에
+        // 그 객체를 실행한다.
+        AutowiredAnnotationBeanPostProcessor processor =
+                new AutowiredAnnotationBeanPostProcessor();
+        processor.postProcess(this);    //callBeanPostProcessor() 대신 가능
+        
+        // 객체 생성 후 작업을 수행하는 클래스가 있다면 찾아서 호출한다.
+//        callBeanPostProcessor();
         
     }
     
@@ -122,38 +125,26 @@ public class ApplicationContext {
         }
     }
     
-    private void injectDependency() {
-        // objPool에 보관된 객체 목록을 꺼낸다.
+
+/*    private void callBeanPostProcessor() {
         Collection<Object> objList = objPool.values();
-
-        for(Object obj :  objList) {
-            //@Component 에노테이션이 붙지 않은 클래스는 제외한다.
-
-            Method[] methods = obj.getClass().getDeclaredMethods();
-            for(Method m : methods) {
-                if(!m.isAnnotationPresent(Autowired.class)) continue;
-
-                // setter 메서드를 호출하기 위해 파라미터 값을 준비한다.
-                // 원래는 매개변수의 갯수를 체크하고 확인해야하지만, 지금은 setter에 하나 뿐이니 이렇게!
-                Class<?> paramType = m.getParameterTypes()[0]; 
-
-                // 그 파라미터 타입과 일치하는 객체가 objPool에서 꺼낸다.
-                Object dependency = getBean(paramType);
-
-                if(dependency == null) continue;
-                // System.out.printf("%s() 셋터 호출!\n", m.getName());
-
-                try {
-                    m.invoke(obj, dependency);
-                    System.out.printf("%s() 호출됨!\n", m.getName());
-                } catch(Exception e) {}
-
-            }
+        
+        // => objPool에 보관된 객체 중에서 BeanPostProcessor 규칙을
+        // 준수하는 객체를 찾는다.
+        for(Object obj : objList) {
+            if(BeanPostProcessor.class.isInstance(obj)) continue;
+            
+            BeanPostProcessor processor = (BeanPostProcessor) obj;
+            processor.postProcess(this);
+            
+            
         }
     }
 
-
-
+*/
+    
+    
+    
 }
 
 
