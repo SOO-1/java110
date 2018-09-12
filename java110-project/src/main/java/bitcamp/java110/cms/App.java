@@ -16,7 +16,6 @@ public class App {
         
         // => 저장소에 보관된 객체 중에서 
         
-        
         RequestMappingHandlerMapping requestHandlerMap =
                 new RequestMappingHandlerMapping();
         
