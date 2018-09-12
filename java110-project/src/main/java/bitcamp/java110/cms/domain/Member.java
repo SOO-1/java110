@@ -1,6 +1,9 @@
 package bitcamp.java110.cms.domain;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable{
+    private static final long serialVersionUID = 1L;
     protected String name;      //field(변수지칭)
     protected String email;
     protected String password;
