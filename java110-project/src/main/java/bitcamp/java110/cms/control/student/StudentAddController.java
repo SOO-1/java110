@@ -5,6 +5,8 @@ import java.util.Scanner;
 import bitcamp.java110.cms.annotation.Autowired;
 import bitcamp.java110.cms.annotation.Component;
 import bitcamp.java110.cms.annotation.RequestMapping;
+import bitcamp.java110.cms.dao.DuplicationDaoException;
+import bitcamp.java110.cms.dao.MandatoryValueDaoException;
 import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
 
@@ -41,10 +43,14 @@ public class StudentAddController {
             System.out.print("전화? ");
             m.setTel(keyIn.nextLine());
             
-            if(studentDao.insert(m) > 0) {
+            studentDao.insert(m);
+
+            try {
                 System.out.println("저장하였습니다.");
-            }else {
-                System.out.println("같은 이메일의 학생이 존재합니다.");
+            }catch(MandatoryValueDaoException ex) {
+                System.out.println("필수 값 누락 오류!");    //ex.getMessage() 
+            }catch(DuplicationDaoException ex) {
+                System.out.println("이메일 중복 오류!");
             }
             
             System.out.print("계속 하시겠습니까?(Y/n) ");

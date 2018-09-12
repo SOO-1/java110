@@ -43,7 +43,14 @@ public class App {
                 continue;
             }
             
-            mapping.getMethod().invoke(mapping.getInstance(), keyIn);
+            try {
+                mapping.getMethod().invoke(mapping.getInstance(), keyIn);
+            }catch(Exception e) {
+                System.out.println("실행오류");
+                //               System.out.println(e);//간단히 클래스이름 출력
+                System.out.println(e.getCause());//원인이 되는 객체 찾아줌.
+            }
+            
             
 //            Method method = mapping.getMethod();           
 //            method.invoke(mapping.getInstance(), keyIn);
