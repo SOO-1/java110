@@ -13,7 +13,7 @@ import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.domain.Manager;
 
 // 자동생성하게
-@Component
+//@Component
 public class ManagerFileDao implements ManagerDao {
 
     private List<Manager> list = new ArrayList<>();
