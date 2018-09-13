@@ -3,7 +3,11 @@
 비트캠프 자바110기 실습 프로젝트
 
 ##tag:v02.3
-- 
+- DAO에 JDBC 적용
+- 작업
+    - Data Modeling과 Forward engineering 수행
+    - JDBC API 활용
+    - 트랜잭션 다루기
 
 ##tag:v02.2
 - 예외처리 적용

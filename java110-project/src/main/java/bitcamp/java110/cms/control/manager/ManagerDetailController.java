@@ -20,12 +20,15 @@ public class ManagerDetailController {
 
     @RequestMapping("manager/detail")
     public void detail(Scanner keyIn) {
-        System.out.print("조회할 학생의 이메일? ");
-        String email = keyIn.nextLine();
+        System.out.print("조회할 매니저의 번호? ");
+/*        int no = Integer.parseInt(keyIn.nextLine());
+        Manager m = managerDao.findByNo(no);
+*/        
+        String email  = keyIn.nextLine();
         Manager m = managerDao.findByEmail(email);
-        
+
         if(m == null) {
-            System.out.println("해당 이메일의 학생정보가 없습니다.");
+            System.out.println("해당 이메일의 매니저가 없습니다.");
             return;
         }
         
