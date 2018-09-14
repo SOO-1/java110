@@ -1,7 +1,8 @@
 package bitcamp.java110.cms;
 import java.util.Scanner;
 
-import bitcamp.java110.cms.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import bitcamp.java110.cms.context.RequestMappingHandlerMapping;
 import bitcamp.java110.cms.context.RequestMappingHandlerMapping.RequestMappingHandler;
 
@@ -11,12 +12,21 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         
-        ApplicationContext iocContainer = 
-                new ApplicationContext("bitcamp.java110.cms");
+        //Spring IoC 컨테이너 사용
+        ClassPathXmlApplicationContext iocContainer = 
+                new ClassPathXmlApplicationContext( //bitcamp를 클래스패스에서 찾음. 자바 클래스의 패키지 중에 bitcamp밑에서 찾기
+                        "bitcamp/java110/cms/conf/application-context.xml");
+         
+         //IoC 컨테이너가 생성한 객체 조회하기
+         System.out.println("=======================");
+         String[] nameList = iocContainer.getBeanDefinitionNames();
+         for(String name : nameList) {
+             System.out.println(name);
+         }  //우리가 만든 annotation이 나오지 않고, spring ioc컨테이너 것만 나옴.
+         System.out.println("======================");
         
-        // => 저장소에 보관된 객체 중에서 
-        
-        RequestMappingHandlerMapping requestHandlerMap =
+
+         RequestMappingHandlerMapping requestHandlerMap =
                 new RequestMappingHandlerMapping();
         
         // => IoC 컨테이너에 보관된 객체의 이름 목록을 가져온다.
@@ -56,6 +66,7 @@ public class App {
         }
         
         keyIn.close();
+        iocContainer.close();
     }
 
     private static String prompt() {

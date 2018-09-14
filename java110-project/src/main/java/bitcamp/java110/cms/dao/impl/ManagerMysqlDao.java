@@ -6,8 +6,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import bitcamp.java110.cms.annotation.Autowired;
-import bitcamp.java110.cms.annotation.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import bitcamp.java110.cms.dao.DaoException;
 import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.domain.Manager;
@@ -225,11 +226,12 @@ public class ManagerMysqlDao implements ManagerDao {
             return 1;
             
         }catch (Exception e) {
-            //지운건 temp에 저장되어있는데 지우는 것이 실패하였으니 rollback하여 되돌려라.
+            //지운건 임시 데이터베이스 temp에 저장되어있는데 지우는 것이 실패하였으니 rollback하여 되돌려라.
             try {con.rollback();} catch(Exception e2) {}
             throw new DaoException(e);
         }finally { //try문 혹은 catch의 예외문을 닫기 직전에 실행됨.
             try{ stmt.close(); } catch(Exception e) {}
+            //
         }
 
     }

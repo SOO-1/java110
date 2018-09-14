@@ -4,6 +4,15 @@
 
 ##tag:v02.5
 - Spring IoC 컨테이너 도입
+- 기존에 만들었던 ApplicationContext 대신에 Spring 프레임워크에서 제공하는 ApplicationContext 사용하기
+- 작업
+    - Spring IoC 컨테이너 라이브러리 추가(build.gradle 파일 편집)
+        - "Spring Context"로 mvnrepository.com에서 검색한다.
+        - 명령창에서 "gradle eclipse"를 실행한다.
+        - eclipse에서 프로젝트를 "refresh"한다.
+    - 스프링 설정 파일 추가(application-context.xml)
+        - bitcamp/java110/cms/conf/application-context.xml
+    - 기존의 ApplicationContext파일 제거
 
 ##tag:v02.4
 - DB 커넥션 공유하기
