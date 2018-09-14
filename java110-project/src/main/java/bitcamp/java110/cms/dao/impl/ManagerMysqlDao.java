@@ -1,37 +1,36 @@
 package bitcamp.java110.cms.dao.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import bitcamp.java110.cms.annotation.Autowired;
 import bitcamp.java110.cms.annotation.Component;
 import bitcamp.java110.cms.dao.DaoException;
 import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.domain.Manager;
+import bitcamp.java110.cms.util.DataSource;
 
 // 자동생성하게
 @Component
 public class ManagerMysqlDao implements ManagerDao {
+    
+    DataSource dataSource;
+    
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public int insert(Manager manager) {
         
-        Connection con = null;
         Statement stmt = null;
+        Connection con = null;
         
         try {
-            // 매니저 정보를 입력할 때 p1_memb 테이블과 p1_mgt 테이블에 
-            // 매니저 정보를 분산 입력 해야 한다.
-            // 두 테이블에 모두 입력 성공할 때 입력을 완료하도록 
-            // 두 insert를 한 작업(transaction)으로 묶는다.
-            // => SQL을 서버에 보낸 후 클라이언트가 최종 완료 신호를
-            //    보내기 전까지는 처리를 보류하도록 설정한다.
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb"
-                    , "study", "1111");
+            con = dataSource.getConnection();
             con.setAutoCommit(false);
 
             stmt = con.createStatement();
@@ -63,13 +62,13 @@ public class ManagerMysqlDao implements ManagerDao {
             stmt.executeUpdate(sql2);
             
             // 두 insert가 모두 성공했을 때만 서버에 완료 신호를 보낸다.
-            con.commit();
+            con.commit();//commit이 들어가기 때문에 실패할 경우 rollback 필요!
             return 1;
         }catch (Exception e) {
+            try {con.rollback();} catch(Exception e2) {}    //insert하다 실패할 경우 대비 롤백!
             throw new DaoException(e);
         }finally {
             try{ stmt.close(); } catch(Exception e) {}
-            try{ con.close(); } catch(Exception e) {}
         }
         //실패했을 경우에는 여기까지 닿지 않기 때문에 return 0 할 필요 X
     }
@@ -82,11 +81,7 @@ public class ManagerMysqlDao implements ManagerDao {
         ResultSet rs = null;    //결과를 가져오기 위해서.
         
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb"
-                    , "study", "1111");
+            con = dataSource.getConnection();
 
             stmt = con.createStatement();
 
@@ -112,61 +107,10 @@ public class ManagerMysqlDao implements ManagerDao {
         }finally {
             try{ rs.close(); } catch(Exception e) {}
             try{ stmt.close(); } catch(Exception e) {}
-            try{ con.close(); } catch(Exception e) {}
         }
         return list;
     }
 
-    Connection con;
-    {
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb"
-                    , "study", "1111");
-
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-    //인스턴스블럭 - 생성자가 호출되기 전에 호출된다.
-
-    public List<Manager> findAll2(){ 
-
-        ArrayList<Manager> list = new ArrayList<>();
-        Statement stmt = null;
-        ResultSet rs = null;    
-        
-        try {
-
-            stmt = con.createStatement();
-
-            rs = stmt.executeQuery(
-                    "  select " + 
-                            "  m.mno," +
-                            "  m.name," + 
-                            "  m.email," + 
-                            "  mr.posi" + 
-                            "  from p1_mgr mr inner join p1_memb m" + 
-                            "  on mr.mrno = m.mno");    
-            while(rs.next()) {
-                Manager mgr = new Manager();   
-                mgr.setNo(rs.getInt("mno"));
-                mgr.setEmail(rs.getString("email"));
-                mgr.setName(rs.getString("name"));
-                mgr.setPosition(rs.getString("posi"));
-
-                list.add(mgr);
-            }
-        }catch (Exception e) {
-            throw new DaoException(e);
-        }finally {
-            try{ rs.close(); } catch(Exception e) {}
-            try{ stmt.close(); } catch(Exception e) {}
-        }
-        return list;
-    }
     
     public Manager findByEmail(String email) {
         
@@ -175,10 +119,7 @@ public class ManagerMysqlDao implements ManagerDao {
         ResultSet rs = null;    //결과를 가져오기 위해서.
         
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb"
-                    , "study", "1111");
+            con = dataSource.getConnection();
 
             stmt = con.createStatement();
             rs = stmt.executeQuery(
@@ -222,10 +163,7 @@ public class ManagerMysqlDao implements ManagerDao {
         ResultSet rs = null;   
         
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb"
-                    , "study", "1111");
+            con = dataSource.getConnection();
 
             stmt = con.createStatement();
             rs = stmt.executeQuery(
@@ -257,7 +195,6 @@ public class ManagerMysqlDao implements ManagerDao {
         }finally {
             try{ rs.close(); } catch(Exception e) {}
             try{ stmt.close(); } catch(Exception e) {}
-            try{ con.close(); } catch(Exception e) {}
         }
 
     }
@@ -269,10 +206,7 @@ public class ManagerMysqlDao implements ManagerDao {
         Statement stmt = null;
         
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/studydb"
-                    , "study", "1111");
+            con = dataSource.getConnection();
             
             con.setAutoCommit(false);
             stmt = con.createStatement();
@@ -286,38 +220,20 @@ public class ManagerMysqlDao implements ManagerDao {
             
             String sql2 = "delete from p1_memb where mno = " + no; //부모삭제
             stmt.executeUpdate(sql2);
-            con.commit();
+            con.commit();   //commit이 들어가기 때문에 실패할 경우 rollback 필요!
             
             return 1;
             
         }catch (Exception e) {
+            //지운건 temp에 저장되어있는데 지우는 것이 실패하였으니 rollback하여 되돌려라.
+            try {con.rollback();} catch(Exception e2) {}
             throw new DaoException(e);
-        }finally {
+        }finally { //try문 혹은 catch의 예외문을 닫기 직전에 실행됨.
             try{ stmt.close(); } catch(Exception e) {}
-            try{ con.close(); } catch(Exception e) {}
         }
 
     }
     
-    
-    public static void main(String[] args) {
-        ManagerMysqlDao dao = new ManagerMysqlDao();
-        long start, end;
-        start = System.currentTimeMillis();    //1970년기준
-        for(int i=0; i<100; i++) {
-            dao.findAll();  //연결 - select - select 끊기
-        }
-        end = System.currentTimeMillis();
-        System.out.println(end-start);
-
-        start = System.currentTimeMillis();    //1970년기준
-        for(int i=0; i<100; i++) {
-            dao.findAll2(); //한번커넥션             => 매번 커넥션하는것보다 훨씬 빠름.
-        }
-        end = System.currentTimeMillis();
-        System.out.println(end-start);
-    
-    }
     
     
     
