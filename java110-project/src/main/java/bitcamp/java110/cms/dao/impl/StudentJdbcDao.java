@@ -91,9 +91,11 @@ public class StudentJdbcDao implements StudentDao {
                 stud.setName(rs.getString("name"));
                 stud.setEmail(rs.getString("email"));
                 stud.setSchool(rs.getString("schl"));
-                stud.setWorking(Boolean.parseBoolean(rs.getString("work")));
+                stud.setWorking(rs.getString("work").equals("Y") ? true : false);
                 
                 list.add(stud);
+                
+                
             }
             
         }catch(Exception e) {
@@ -137,7 +139,7 @@ public class StudentJdbcDao implements StudentDao {
                 stud.setEmail(rs.getString("email"));
                 stud.setTel(rs.getString("tel"));
                 stud.setSchool(rs.getString("schl"));
-                stud.setWorking(Boolean.parseBoolean(rs.getString("work")));
+                stud.setWorking(rs.getString("work").equals("Y") ? true : false);
                 
                 return stud;
             }
@@ -183,7 +185,7 @@ public class StudentJdbcDao implements StudentDao {
                 stud.setEmail(rs.getString("email"));
                 stud.setTel(rs.getString("tel"));
                 stud.setSchool(rs.getString("schl"));
-                stud.setWorking(Boolean.parseBoolean(rs.getString("work")));
+                stud.setWorking(rs.getString("work").equals("Y") ? true : false);
                 
                 return stud;
             }
