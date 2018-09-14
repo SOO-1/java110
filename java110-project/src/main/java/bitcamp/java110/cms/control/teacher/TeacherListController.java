@@ -1,7 +1,7 @@
 package bitcamp.java110.cms.control.teacher;
 
+import java.io.PrintStream;
 import java.util.List;
-import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,12 +21,12 @@ public class TeacherListController {
     }
 
     @RequestMapping("teacher/list")
-    public void printTeachers(Scanner keyIn) {
+    public void printTeachers(PrintStream out) {
         
         List<Teacher> list = teacherDao.findAll();
         
         for (Teacher s : list) {
-            System.out.printf("%d, %s, %s, %s, %s, %d, [%s]\n",
+            out.printf("%d, %s, %s, %s, %s, %d, [%s]\n",
                     s.getNo(),
                     s.getName(), 
                     s.getEmail(), 
