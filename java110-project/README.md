@@ -2,6 +2,17 @@
 
 비트캠프 자바110기 실습 프로젝트
 
+##tag:v02.5
+- DAO에 JDBC 적용
+- 작업
+    - Data Modeling과 Forward engineering 수행
+    - JDBC API 활용
+    - 트랜잭션 다루기
+
+##tag:v02.4
+- DB 커넥션풀 적용
+- 커넥션풀 사용 이유: DB 연결 객체를 재사용하여 가비지를 줄이고, 실행속도를 높이기 위함.
+
 ##tag:v02.3
 - DAO에 JDBC 적용
 - 작업

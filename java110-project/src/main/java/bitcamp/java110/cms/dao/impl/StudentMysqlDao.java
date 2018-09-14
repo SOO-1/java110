@@ -13,7 +13,7 @@ import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
 
 @Component
-public class StudentJdbcDao implements StudentDao {
+public class StudentMysqlDao implements StudentDao {
     
     public int insert(Student student) {
         Connection con = null;
@@ -200,7 +200,7 @@ public class StudentJdbcDao implements StudentDao {
         }
     }
     
-    public int deleteByNo(int no) {
+    public int delete(int no) {
         Connection con = null;
         Statement stmt = null;
         

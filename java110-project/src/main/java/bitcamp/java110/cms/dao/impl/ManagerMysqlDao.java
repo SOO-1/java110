@@ -14,7 +14,7 @@ import bitcamp.java110.cms.domain.Manager;
 
 // 자동생성하게
 @Component
-public class ManagerJdbcDao implements ManagerDao {
+public class ManagerMysqlDao implements ManagerDao {
 
     public int insert(Manager manager) {
         
@@ -245,7 +245,7 @@ public class ManagerJdbcDao implements ManagerDao {
     }
     
     
-    public int deleteByNo(int no) {
+    public int delete(int no) {
         
         Connection con = null;
         Statement stmt = null;

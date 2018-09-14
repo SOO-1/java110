@@ -22,7 +22,7 @@ public class TeacherDeleteController {
         System.out.print("삭제할 학생의 번호? ");
         int no = Integer.parseInt(keyIn.nextLine());
         
-        if(teacherDao.deleteByNo(no)>0) {
+        if(teacherDao.delete(no)>0) {
             System.out.println("삭제하였습니다.");
         }else {
             System.out.println("해당 번호가 존재하지 않습니다.");
