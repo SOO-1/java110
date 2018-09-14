@@ -6,7 +6,13 @@ plugins {
     id 'eclipse'
 }
 
-mainClassName = 'App'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '1.8' //1.8버전까지는 Ok, compile해라.(10버전이면 error가 뜨게 됨)
+    targetCompatibility = '1.8' //1.8이상에서 실행되게.
+}
+
+mainClassName = 'bitcamp.java110.cms.App'
 
 //프로젝트에서 사용할 라이브러리 설정
 // => 라이브러리 정보는 Mvnrepository.com에서 검색하여 가져온다. 
