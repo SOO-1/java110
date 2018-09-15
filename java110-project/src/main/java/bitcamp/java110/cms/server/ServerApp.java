@@ -66,7 +66,6 @@ public class ServerApp {
                             new InputStreamReader(
                                     socket.getInputStream())); 
 
-
                     ){
 
                 System.out.println(in.readLine());
@@ -98,7 +97,6 @@ public class ServerApp {
 
                     try {
                         mapping.getMethod().invoke(mapping.getInstance(), out); //controller에게 출력 stream 줌
-                        out.println();
                     }catch(Exception e) {
                         e.printStackTrace();    // 서버 콘솔창에 써지는 것.
                         out.println("요청 처리 중에 오류가 발생했습니다.");    //client 창에 써지는 것
