@@ -4,7 +4,6 @@ public class Student extends Member {
         private static final long serialVersionUID = 1L;
         protected String school;
         protected boolean working;
-        protected String tel;
         
         public String getSchool() {
             return school;
@@ -18,13 +17,6 @@ public class Student extends Member {
         public void setWorking(boolean working) {
             this.working = working;
         }
-        public String getTel() {
-            return tel;
-        }
-        public void setTel(String tel) {
-            this.tel = tel;
-        }
-        
         
     
     

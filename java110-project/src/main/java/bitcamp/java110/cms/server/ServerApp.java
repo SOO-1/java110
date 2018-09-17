@@ -3,7 +3,7 @@ package bitcamp.java110.cms.server;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -58,7 +58,7 @@ public class ServerApp {
         while(true) {
             try (
                     Socket socket = serverSocket.accept();  //client와 대화 끊기더라도 그다음 client와 대화.
-                    PrintStream out = new PrintStream(
+                    PrintWriter out = new PrintWriter(
                             new BufferedOutputStream(
                                     socket.getOutputStream())); 
 
@@ -86,8 +86,14 @@ public class ServerApp {
 
                     }
 
+                    // 요청 객체 준비
+                    Request request = new Request(requestLine);
+                    
+                    // 응답 객체 준비
+                    Response response = new Response(out);
+
                     RequestMappingHandler mapping = 
-                            requestHandlerMap.getMapping(requestLine);  //requestLine :명령어
+                            requestHandlerMap.getMapping(request.getAppPath()); //물음표 앞의 값
                     if (mapping == null) {
                         out.println("해당 요청을 처리할 수 없습니다.");
                         out.println();
@@ -96,7 +102,10 @@ public class ServerApp {
                     }
 
                     try {
-                        mapping.getMethod().invoke(mapping.getInstance(), out); //controller에게 출력 stream 줌
+                        
+                        
+                        // 요청 핸들러 호출, mapping.getInstance()는 인스턴스 주소를 줌.
+                        mapping.getMethod().invoke(mapping.getInstance(), request, response); //controller에게 출력 stream 줌
                     }catch(Exception e) {
                         e.printStackTrace();    // 서버 콘솔창에 써지는 것.
                         out.println("요청 처리 중에 오류가 발생했습니다.");    //client 창에 써지는 것

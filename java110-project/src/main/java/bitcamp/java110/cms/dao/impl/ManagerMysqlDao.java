@@ -25,7 +25,7 @@ public class ManagerMysqlDao implements ManagerDao {
         this.dataSource = dataSource;
     }
 
-    public int insert(Manager manager) {
+    public int insert(Manager manager) throws DaoException {
         
         Statement stmt = null;
         Connection con = null;
@@ -74,7 +74,7 @@ public class ManagerMysqlDao implements ManagerDao {
         //실패했을 경우에는 여기까지 닿지 않기 때문에 return 0 할 필요 X
     }
 
-    public List<Manager> findAll(){ //밑에서 catch가 던지는것이 runtime exception이기 때문에 메서드 옆에 붙이지 않아도 됨.
+    public List<Manager> findAll() throws DaoException{ //밑에서 catch가 던지는것이 runtime exception이기 때문에 메서드 옆에 붙이지 않아도 됨.
 
         ArrayList<Manager> list = new ArrayList<>();
         Connection con = null;
@@ -113,7 +113,7 @@ public class ManagerMysqlDao implements ManagerDao {
     }
 
     
-    public Manager findByEmail(String email) {
+    public Manager findByEmail(String email) throws DaoException {
         
         Connection con = null;
         Statement stmt = null;
@@ -157,7 +157,7 @@ public class ManagerMysqlDao implements ManagerDao {
 
     }
    
-    public Manager findByNo(int no) {
+    public Manager findByNo(int no) throws DaoException{
         
         Connection con = null;
         Statement stmt = null;
@@ -201,7 +201,7 @@ public class ManagerMysqlDao implements ManagerDao {
     }
     
     
-    public int delete(int no) {
+    public int delete(int no) throws DaoException{
         
         Connection con = null;
         Statement stmt = null;

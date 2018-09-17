@@ -10,11 +10,18 @@ public class Member implements Serializable{
     protected String name;      //field(변수지칭)
     protected String email;
     protected String password;
+    protected String tel;
   //transient 필드 : serialize 대상에서 제외된다.
 //    protected transient String password;
     
     //getName() =getter, setName() =setter       =>operator/accessor/property/message
     //인스턴스의 메모리를 다루는 연산자(operator=setter&getter=accessor=property=message)
+    public String getTel() {
+        return tel;
+    }
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
     public String getName() {
         return name;
     }
