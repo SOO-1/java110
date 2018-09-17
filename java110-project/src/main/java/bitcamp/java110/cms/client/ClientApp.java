@@ -17,7 +17,7 @@ public class ClientApp {
                 //File f = new File("okok");, String s = "okok"; 등과 같은건 되지 않음. 
 
                 // 서버에 연결하기
-                Socket socket = new Socket("localhost", 8888);  //8888 서버에 접속, 서버연결시 return을 받음.
+                Socket socket = new Socket("192.168.0.76", 8888);  //8888 서버에 접속, 서버연결시 return을 받음.
 
                 // 서버에 데이터를 보내고 읽을 도구를 준비하기
                 /*        OutputStream out = socket.getOutputStream();    //outputStream은 byte단위이기 때문에 .

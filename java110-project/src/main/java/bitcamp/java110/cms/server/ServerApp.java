@@ -56,16 +56,43 @@ public class ServerApp {
         System.out.println("서버 실행 중 ...");
 
         while(true) {
+            Socket socket = serverSocket.accept();
+            RequestWorker worker = new RequestWorker(socket);
+            new Thread(worker).start();
+            //worker.start();    //run은 별도 작업으로 분리해서 실행. worker는 thread이기 때문에 start!
+            //main스레드에서 새로 생산한 스레드는 main의 자식 스레드
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        ServerApp serverApp = new ServerApp();
+        serverApp.service();    // main thread는 service의 accept에서 기다리고 있음. 대기열에 새로운 client 들어올 때까지
+
+    }
+
+    //client요청 받는애를 skeleton라고 함. 
+    class RequestWorker implements Runnable { // 클래스는 여러 클래스 상속 불가!, 스레드 대신 implements Runnable 가능! extends Thread
+
+        Socket socket;
+
+        public RequestWorker(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            // 이 메서드에 "main" 스레드에서 분리하여 독립적으로 수행할 코드를 둔다.
             try (
-                    Socket socket = serverSocket.accept();  //client와 대화 끊기더라도 그다음 client와 대화.
-                    PrintWriter out = new PrintWriter(
-                            new BufferedOutputStream(
-                                    socket.getOutputStream())); 
+                 // 이 안에 local변수로 선언을 해야 이 try문을 나갔을 때 socket이 자동으로 close하게됨! => finally사용하지 않아도 됨!    
+                 // 따라서 인스턴스 변수로 socket이 있지만 안에서 다시 선언해줌.
+                Socket socket = this.socket;        
+                PrintWriter out = new PrintWriter(
+                        new BufferedOutputStream(
+                                socket.getOutputStream())); 
 
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(
-                                    socket.getInputStream())); 
-
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(
+                                socket.getInputStream())); 
                     ){
 
                 System.out.println(in.readLine());
@@ -88,7 +115,7 @@ public class ServerApp {
 
                     // 요청 객체 준비
                     Request request = new Request(requestLine);
-                    
+
                     // 응답 객체 준비
                     Response response = new Response(out);
 
@@ -102,8 +129,8 @@ public class ServerApp {
                     }
 
                     try {
-                        
-                        
+
+
                         // 요청 핸들러 호출, mapping.getInstance()는 인스턴스 주소를 줌.
                         mapping.getMethod().invoke(mapping.getInstance(), request, response); //controller에게 출력 stream 줌
                     }catch(Exception e) {
@@ -114,16 +141,12 @@ public class ServerApp {
                     out.println();
                     out.flush();
                 }
-            }
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        ServerApp serverApp = new ServerApp();
-        serverApp.service();
-
-    }
-}
+            }catch(Exception e) { //try
+                System.out.println(e.getMessage());
+            } 
+        }   // run()
+    }   // RequestWorker class
+}// Servletclass
 
 
 
