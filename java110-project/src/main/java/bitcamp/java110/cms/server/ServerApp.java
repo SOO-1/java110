@@ -13,6 +13,7 @@ import bitcamp.java110.cms.context.RequestMappingHandlerMapping;
 import bitcamp.java110.cms.context.RequestMappingHandlerMapping.RequestMappingHandler;
 
 public class ServerApp {
+    
     ClassPathXmlApplicationContext iocContainer;
     RequestMappingHandlerMapping requestHandlerMap;
 
@@ -57,6 +58,7 @@ public class ServerApp {
 
         while(true) {
             Socket socket = serverSocket.accept();
+            System.out.println("클라이언트가 연결되었음!");
             RequestWorker worker = new RequestWorker(socket);
             new Thread(worker).start();
             //worker.start();    //run은 별도 작업으로 분리해서 실행. worker는 thread이기 때문에 start!
@@ -81,6 +83,7 @@ public class ServerApp {
 
         @Override
         public void run() {
+            
             // 이 메서드에 "main" 스레드에서 분리하여 독립적으로 수행할 코드를 둔다.
             try (
                  // 이 안에 local변수로 선언을 해야 이 try문을 나갔을 때 socket이 자동으로 close하게됨! => finally사용하지 않아도 됨!    
@@ -94,30 +97,15 @@ public class ServerApp {
                         new InputStreamReader(
                                 socket.getInputStream())); 
                     ){
+                
+                String requestLine = in.readLine();
+                System.out.println("클라이언트 요청 받았음!");
 
-                System.out.println(in.readLine());
-                out.println("OK:CHOI");
-                out.flush();
+                // 요청 객체 준비
+                Request request = new Request(requestLine);
 
-                while(true) {
-                    String requestLine = in.readLine(); //client가 보낸 요청라인 받음
-                    out.println(requestLine);   //읽은것 그대로 return
-
-
-
-                    if(requestLine.equals("EXIT")) {
-                        out.println("goodbye");
-                        out.println();  //줄바꿈이 다했다는 의미.(답변맨마지막)
-                        out.flush();    //buffer에 쌓여있으니 flush
-                        break;
-
-                    }
-
-                    // 요청 객체 준비
-                    Request request = new Request(requestLine);
-
-                    // 응답 객체 준비
-                    Response response = new Response(out);
+                // 응답 객체 준비
+                Response response = new Response(out);
 
                     RequestMappingHandler mapping = 
                             requestHandlerMap.getMapping(request.getAppPath()); //물음표 앞의 값
@@ -125,12 +113,10 @@ public class ServerApp {
                         out.println("해당 요청을 처리할 수 없습니다.");
                         out.println();
                         out.flush();
-                        continue;
+                        return;
                     }
 
                     try {
-
-
                         // 요청 핸들러 호출, mapping.getInstance()는 인스턴스 주소를 줌.
                         mapping.getMethod().invoke(mapping.getInstance(), request, response); //controller에게 출력 stream 줌
                     }catch(Exception e) {
@@ -140,10 +126,13 @@ public class ServerApp {
 
                     out.println();
                     out.flush();
-                }
+                
             }catch(Exception e) { //try
                 System.out.println(e.getMessage());
-            } 
+            } finally {
+                System.out.println("클라이언트에게 응답했음!");
+                System.out.println("클라이언트와 연결끊음");
+            }
         }   // run()
     }   // RequestWorker class
 }// Servletclass
