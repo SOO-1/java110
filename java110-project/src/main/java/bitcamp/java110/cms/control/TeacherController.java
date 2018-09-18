@@ -3,14 +3,15 @@ package bitcamp.java110.cms.control;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import bitcamp.java110.cms.annotation.RequestMapping;
 import bitcamp.java110.cms.dao.TeacherDao;
 import bitcamp.java110.cms.domain.Teacher;
-import bitcamp.java110.cms.server.Request;
-import bitcamp.java110.cms.server.Response;
 
 @Component
 public class TeacherController {
@@ -23,7 +24,7 @@ public class TeacherController {
     }
 
     @RequestMapping("teacher/add")
-    public void add(Request request, Response response) {
+    public void add(ServletRequest request, ServletResponse response) throws Exception{
         
             Teacher t = new Teacher();
             
@@ -43,7 +44,7 @@ public class TeacherController {
     }
 
     @RequestMapping("teacher/delete")
-    public void deleteByNo(Request request, Response response) {
+    public void deleteByNo(ServletRequest request, ServletResponse response) throws Exception{
         
         int no = Integer.parseInt(request.getParameter("no"));
         PrintWriter out = response.getWriter();
@@ -57,7 +58,7 @@ public class TeacherController {
     }
 
     @RequestMapping("teacher/detail")
-    public void detail(Request request, Response response) {
+    public void detail(ServletRequest request, ServletResponse response) throws Exception{
         
         int no = Integer.parseInt(request.getParameter("no"));
         Teacher t = teacherDao.findByNo(no);
@@ -78,7 +79,7 @@ public class TeacherController {
     }
 
     @RequestMapping("teacher/list")
-    public void printTeachers(Request request, Response response) {
+    public void printTeachers(ServletRequest request, ServletResponse response) throws Exception{
         
         PrintWriter out = response.getWriter();
         

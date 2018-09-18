@@ -2,8 +2,8 @@
 plugins {
 
     id 'java'
-    id 'application'
-    id 'eclipse'
+    id 'eclipse-wtp'    // web tool plug-in
+    id 'war'   // 만든걸 jar로 배포하지 않음. java archive(java로만든 묶음파일)
 }
 
 tasks.withType(JavaCompile) {
@@ -12,11 +12,13 @@ tasks.withType(JavaCompile) {
     targetCompatibility = '1.8' //1.8이상에서 실행되게.
 }
 
-mainClassName = 'bitcamp.java110.cms.App'
-
 //프로젝트에서 사용할 라이브러리 설정
 // => 라이브러리 정보는 Mvnrepository.com에서 검색하여 가져온다. 
 dependencies {
+    //Servlet API 라이브러리
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    // 컴파일할 때만 사용하고, 대치할 때는 제외. 톰캣서버에 이미 있어서 그걸로 쓸거임.서버에 배포할 때 얘는 배포되지 않음.
+    
     //Spring IoC 컨테이너 관련 라이브러리
     // https://mvnrepository.com/artifact/org.springframework/spring-context
     compile group: 'org.springframework', name: 'spring-context', version: '5.0.9.RELEASE'
@@ -34,5 +36,5 @@ dependencies {
 //라이브러리를 다운로드 받는 서버 설정
 repositories {
 
-    mavenCentral()  //https:apache....
+    mavenCentral()  //https://repo.maven.apache.org/maven2/
 }

@@ -3,14 +3,15 @@ package bitcamp.java110.cms.control;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import bitcamp.java110.cms.annotation.RequestMapping;
 import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
-import bitcamp.java110.cms.server.Request;
-import bitcamp.java110.cms.server.Response;
 
 @Component
 public class StudentController {
@@ -23,7 +24,7 @@ public class StudentController {
     }
 
     @RequestMapping("student/add")
-    public void add(Request request, Response response) {
+    public void add(ServletRequest request, ServletResponse response) throws Exception{
             
         Student s = new Student();
 
@@ -42,7 +43,7 @@ public class StudentController {
     }   
 
     @RequestMapping("student/delete")
-    public void deleteByNo(Request request, Response response) {
+    public void deleteByNo(ServletRequest request, ServletResponse response) throws Exception{
         int no = Integer.parseInt(request.getParameter("no"));
         PrintWriter out = response.getWriter();
                
@@ -54,7 +55,7 @@ public class StudentController {
     }
 
     @RequestMapping("student/detail")
-    public void detail(Request request, Response response) {
+    public void detail(ServletRequest request, ServletResponse response) throws Exception{
         
         int no = Integer.parseInt(request.getParameter("no"));       
         Student student = studentDao.findByNo(no);
@@ -74,7 +75,7 @@ public class StudentController {
     }
 
     @RequestMapping("student/list")
-    public void list(Request request, Response response) {
+    public void list(ServletRequest request, ServletResponse response) throws Exception{
 
         PrintWriter out = response.getWriter();
         
