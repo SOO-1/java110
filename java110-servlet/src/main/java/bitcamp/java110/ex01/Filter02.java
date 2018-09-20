@@ -27,7 +27,7 @@ public class Filter02 implements Filter{
     public void init(FilterConfig filterConfig) throws ServletException {
         // 필터가 생성된 후 생성자 호출 후 이 메서드가 실행된다.
         // 필터가 작업하는 동안 사용 할 자원을 준비하는 일을 한다.
-        System.out.println("Filter02.init() 호출됨.");
+        System.out.println("Filter02.init() 호출됨");
     }
 
     @Override
