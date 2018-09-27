@@ -9,24 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java110.cms.dao.impl.ManagerMysqlDao;
+import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.domain.Manager;
-import bitcamp.java110.cms.util.DataSource;
 
 @WebServlet("/manager/add")
 public class ManagerAddServlet extends HttpServlet{
     
     private static final long serialVersionUID = 1L;
-    ManagerMysqlDao managerDao;
-    
-    
-    @Override
-    public void init() throws ServletException {
-        DataSource dataSource = new DataSource();
-        managerDao = new ManagerMysqlDao();
-        managerDao.setDataSource(dataSource);
-    }
-    
 
     @Override   
     public void doGet(HttpServletRequest request,
@@ -40,6 +29,9 @@ public class ManagerAddServlet extends HttpServlet{
             m.setTel(request.getParameter("tel"));
             m.setPosition(request.getParameter("position"));
             
+            ManagerDao managerDao = (ManagerDao)this.getServletContext()
+                    .getAttribute("managerDao");
+           
             managerDao.insert(m);   //runtime exception 내가 try-catch안해도  현재 이곳에 exception 던져줌.
             
             response.setContentType("text/plain;charset=UTF-8");
