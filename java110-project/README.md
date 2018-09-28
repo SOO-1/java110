@@ -2,6 +2,12 @@
 
 비트캠프 자바110기 실습 프로젝트
 
+##tag:v4.2
+- 리스너를 이용하여 공용 자원을 준비하기
+- 작업
+    - ContextLoaderListener 클래스를 생성
+    - 이 리스너에서 DAO 준비하기
+
 ##tag:v4.1
 - 서블릿의 loadOnStartup 배치 속성을 이용하여 공용 자원을 준비하기
 - ServletContext를 이용하여 공용자원을 공유하기
