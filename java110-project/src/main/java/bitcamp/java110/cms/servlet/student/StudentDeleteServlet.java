@@ -22,17 +22,32 @@ public class StudentDeleteServlet extends HttpServlet {
             throws ServletException, IOException {
 
         int no = Integer.parseInt(request.getParameter("no"));
-        response.setContentType("text/plain;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
         StudentDao studentDao = (StudentDao)this.getServletContext()
                 .getAttribute("studentDao");
-               
-        if(studentDao.delete(no)>0) {
-            out.println("삭제하였습니다.");
-        } else {
-            out.println("해당 번호의 학생이 존재하지 않습니다.");
+ 
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<meta charset=\"UTF-8\">");
+        out.println("<title>학생 관리</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>학생 삭제 결과</h1>");
+        
+        try{
+            studentDao.delete(no);
+            out.println("<p>삭제하였습니다.</p>");
+        }catch(Exception e){
+            e.printStackTrace();
+            out.println("<p>삭제 중 오류 발생!</p>");
         }
+        
+        out.println("</body>");
+        out.println("</html>");
+
     }
    
 }
