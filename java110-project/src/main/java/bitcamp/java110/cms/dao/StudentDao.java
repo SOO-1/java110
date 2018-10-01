@@ -11,5 +11,6 @@ public interface StudentDao {
     Student findByEmail(String email);
     Student findByNo(int no); 
     int delete(int no);
+    Student findByEmailPassword(String email, String password);
     
 }

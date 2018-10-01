@@ -12,7 +12,7 @@ public interface ManagerDao {
     Manager findByEmail(String email);
     Manager findByNo(int no);
     int delete(int no);
-    // 나중에 새 규칙을 추가하였지만, 기존 구현체에는 영향을 안끼치기 위해 사용하는 것이 default!
+    Manager findByEmailPassword(String email, String password);
     
     
 }

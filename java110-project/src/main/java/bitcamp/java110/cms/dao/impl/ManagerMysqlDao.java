@@ -231,6 +231,52 @@ public class ManagerMysqlDao implements ManagerDao {
 
     }
     
+    @Override
+    public Manager findByEmailPassword(String email, String password) throws DaoException {
+        
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;    //결과를 가져오기 위해서.
+        
+        try {
+            con = dataSource.getConnection();
+
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(
+                    "  select " + 
+                            "  m.mno," +
+                            "  m.name," + 
+                            "  m.email," +
+                            "  m.tel," + 
+                            "  mr.posi" + 
+                            "  from p1_mgr mr inner join p1_memb m" + 
+                            "  on mr.mrno = m.mno" +
+                            "  where m.email = '" + email +
+                            "' and m.pwd=password('" + password +
+                            "')");    //sql안에 ;넣지 않음.
+
+            if(rs.next()) {
+                Manager mgr = new Manager();    //바깥으로 뽑으면 arraylist에 기존데이터가 날아가고 모든 것이 같은 주소를 가리키게 됨.
+                mgr.setNo(rs.getInt("mno"));
+                mgr.setEmail(rs.getString("email"));
+                mgr.setName(rs.getString("name"));
+                mgr.setTel(rs.getString("tel"));
+                mgr.setPosition(rs.getString("posi"));
+
+                return mgr;
+            }
+            
+            return null;
+            
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally {
+            try{ rs.close(); } catch(Exception e) {}
+            try{ stmt.close(); } catch(Exception e) {}
+            //끝났지만 인스턴스블록의 con을 닫지 않음.
+        }
+
+    }
     
     
     

@@ -221,6 +221,56 @@ public class StudentMysqlDao implements StudentDao {
             try{ stmt.close(); } catch(Exception e) {}
         }
     }
+
+    @Override
+    public Student findByEmailPassword(String email, String password) throws DaoException {
+        
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;    //결과를 가져오기 위해서.
+        
+        try {
+            con = dataSource.getConnection();
+
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(
+                    "  select " + 
+                            "  m.mno," +
+                            "  m.name," + 
+                            "  m.email," +
+                            "  m.tel," + 
+                            "  s.schl," +
+                            "  s.work" +
+                            "  from p1_memb m join p1_stud s" +
+                            "  on m.mno = s.sno" +
+                            "  where m.email = '" + email +
+                            "' and m.pwd=password('" + password +
+                            "')");    //sql안에 ;넣지 않음.
+
+            if(rs.next()) {
+                Student stud = new Student();
+                stud.setNo(rs.getInt("mno"));
+                stud.setName(rs.getString("name"));
+                stud.setEmail(rs.getString("email"));
+                stud.setTel(rs.getString("tel"));
+                stud.setSchool(rs.getString("schl"));
+                stud.setWorking(rs.getString("work").equals("Y") ? true : false);
+
+                return stud;
+            }
+            
+            return null;
+            
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally {
+            try{ rs.close(); } catch(Exception e) {}
+            try{ stmt.close(); } catch(Exception e) {}
+            //끝났지만 인스턴스블록의 con을 닫지 않음.
+        }
+
+    }
+
     
     
 }

@@ -218,7 +218,54 @@ public class TeacherMysqlDao implements TeacherDao{
 
     }
     
-    
+    @Override
+    public Teacher findByEmailPassword(String email, String password ) throws DaoException {
+        
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;    //결과를 가져오기 위해서.
+        
+        try {
+            con = dataSource.getConnection();
+
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(
+                    "  select " + 
+                            "  m.mno," +
+                            "  m.name," + 
+                            "  m.email," +
+                            "  m.tel," + 
+                            "  t.hrpay," +
+                            "  t.subj" +
+                            "  from p1_memb m join p1_tchr t" +
+                            "  on m.mno = t.tno" +
+                            "  where m.email = '" + email +
+                            "' and m.pwd=password('" + password +
+                            "')");    //sql안에 ;넣지 않음.
+
+            if(rs.next()) {
+                Teacher tchr = new Teacher();
+                tchr.setNo(rs.getInt("mno"));
+                tchr.setName(rs.getString("name"));
+                tchr.setEmail(rs.getString("email"));
+                tchr.setTel(rs.getString("tel"));
+                tchr.setPay(rs.getInt("hrpay"));
+                tchr.setSubjects(rs.getString("subj"));
+
+                return tchr;
+            }
+            
+            return null;
+            
+        }catch (Exception e) {
+            throw new DaoException(e);
+        }finally {
+            try{ rs.close(); } catch(Exception e) {}
+            try{ stmt.close(); } catch(Exception e) {}
+            //끝났지만 인스턴스블록의 con을 닫지 않음.
+        }
+
+    }
     
     
 }
