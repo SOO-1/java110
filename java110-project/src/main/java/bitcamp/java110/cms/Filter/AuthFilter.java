@@ -33,6 +33,7 @@ public class AuthFilter implements Filter{
         if(servletPath.endsWith("add") ||
                 servletPath.endsWith("delete")) {
 
+            // 로그인 했을 때만 add와 delete 가능!
             // 로그인 여부 검사
             HttpSession session = httpRequest.getSession();
             Member loginUser = (Member)session.getAttribute("loginUser");
