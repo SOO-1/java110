@@ -8,6 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import bitcamp.java110.cms.domain.Manager;
+import bitcamp.java110.cms.domain.Member;
+import bitcamp.java110.cms.domain.Teacher;
 
 @WebServlet("/header")
 public class HeaderServlet extends HttpServlet{
@@ -27,14 +32,26 @@ public class HeaderServlet extends HttpServlet{
         
         PrintWriter out = response.getWriter();
 
-        // <div id='header'> 와 같이 id 또는 class로 사용했음.
         out.println("<header>");
-//        out.println("<img src='http://bitcamp.co.kr/img/logo2.jpg'>");
         out.println("<h1>비트캠프</h1>");
         out.println("<ul>");
-//        out.printf("<li><a href='%s/student/list'>학생관리</a></li>\n", webAppRoot);
-//        out.printf("<li><a href='%s/teacher/list'>강사관리</a></li>\n", webAppRoot);
-//        out.printf("<li><a href='%s/manager/list'>매니저관리</a></li>\n", webAppRoot);
+        
+        HttpSession session = request.getSession();
+        Member loginUser = (Member)session.getAttribute("loginUser");
+        
+        if(loginUser == null) {
+            out.println("<li><a href = '/auth/login'>로그인</a></li>");
+        }else {
+            String loginType = "학생";
+            if(loginUser instanceof Manager) {
+                loginType = "매니저";
+            }else if(loginUser instanceof Teacher) {
+                loginType = "강사";
+            }
+            out.printf("<li>[%s]%s (<a href = '/auth/logout'>로그아웃</a></li>)\n",
+                    loginType, loginUser.getName());
+        }   //a태그 끝에 /a를 하지 않으면 밑줄생김.
+        
         out.println("<li><a href='/student/list'>학생관리</a></li>\n");
         out.println("<li><a href='/teacher/list'>강사관리</a></li>\n");
         out.println("<li><a href='/manager/list'>매니저관리</a></li>\n");
