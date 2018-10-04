@@ -201,7 +201,7 @@ public class TeacherMysqlDao implements TeacherDao{
             int count = stmt.executeUpdate(sql);
             
             if(count ==0)
-                return 0;
+                throw new Exception("일치하는 번호가 없습니다.");
             
             String sql2 = "delete from p1_memb where mno = " + no; //부모삭제
             stmt.executeUpdate(sql2);

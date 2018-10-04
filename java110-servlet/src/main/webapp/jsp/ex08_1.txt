@@ -1,0 +1,7 @@
+<%@ page 
+    pageEncoding="UTF-8"
+    trimDirectiveWhitespaces="true"%>
+
+<p>ex08_1 내용</p>
+
+=> pageEncoding에 대해 적어줘야함!

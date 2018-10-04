@@ -1,8 +1,13 @@
+<%@ page language="java" 
+    contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>매니저 관리</title>
+<title>학생 관리</title>
+<link rel='stylesheet' href='../css/common.css'>
 <style>
  th{
     text-align: right;
@@ -10,7 +15,10 @@
 </style>
 </head>
 <body>
-<h1>매니저 등록</h1>
+
+<jsp:include page="../header.jsp"></jsp:include>
+
+<h1>학생 등록(MVC)</h1>
 <form action='add' method='post'>   <!-- post로 해야 비밀번호가 캐시에 남지 않음! -->
 <table>
   <tbody>
@@ -31,8 +39,12 @@
     <td><input type='tel' name='tel'></td>
   </tr>
   <tr>
-    <th>직위</th>
-    <td><input type='text' name='position'></td>
+    <th>최종학력</th>
+    <td><input type='text' name='school'></td>
+  </tr>
+    <tr>
+    <th>재직여부</th>
+    <td><input type='text' name='working'></td>
   </tr>
   <tr>
     <th></th>
@@ -41,5 +53,8 @@
   </tbody>
 </table>
 </form>
+
+<jsp:include page="../footer.jsp"/>
+
 </body>
 </html>
