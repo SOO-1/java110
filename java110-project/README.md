@@ -1,6 +1,16 @@
 # java110
 
 비트캠프 자바110기 실습 프로젝트
+  
+##tag:v5.1
+- EL 적용
+- 작업
+    - JSP 파일에 EL문법을 적용한다.
+
+##tag:v5.0
+- JSP 액션 태그 적용
+- 작업
+    - list, jsp, detail.jsp에 JSP 액션 태그를 적용한다.
 
 ##tag:v4.9
 - JSP를 활용한 MVC 모델 1 타입 적용
