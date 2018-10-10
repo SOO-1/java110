@@ -23,6 +23,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-context
     //compile group: 'org.springframework', name: 'spring-context', version: '5.0.9.RELEASE'
     
+    // JSTL 구현 라이브러리
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 
     // mariadb jdbc driver
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
