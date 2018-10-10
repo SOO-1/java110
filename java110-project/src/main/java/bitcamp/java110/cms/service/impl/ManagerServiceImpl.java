@@ -50,6 +50,16 @@ public class ManagerServiceImpl implements ManagerService {
     public Manager get(int no) {
         return managerDao.findByNo(no);
     }
+
+    @Override
+    public void delete(int no) {
+        if(managerDao.delete(no) == 0) {
+            throw new RuntimeException("해당 번호의 데이터가 없습니다.");
+        }
+        managerDao.delete(no);
+        photoDao.delete(no);
+        memberDao.delete(no);
+    }
 }
 
 

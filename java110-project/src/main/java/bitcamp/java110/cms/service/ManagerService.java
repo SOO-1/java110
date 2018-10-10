@@ -10,4 +10,5 @@ public interface ManagerService {
     void add(Manager manager);
     List<Manager> list();
     Manager get(int no);
+    void delete(int no);
 }
