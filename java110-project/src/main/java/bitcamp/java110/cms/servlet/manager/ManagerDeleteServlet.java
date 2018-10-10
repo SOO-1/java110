@@ -30,7 +30,7 @@ public class ManagerDeleteServlet extends HttpServlet {
             managerDao.delete(no);
             response.sendRedirect("list");
         }catch(Exception e){
-            
+            e.printStackTrace();
             request.setAttribute("error", e);
             request.setAttribute("message", "매니저 삭제 오류!");
             request.setAttribute("refresh", "3;url=list");

@@ -1,17 +1,21 @@
 package bitcamp.java110.cms.servlet.manager;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.domain.Manager;
 
+@MultipartConfig(maxFileSize=2_000_000)
 @WebServlet("/manager/add")
 public class ManagerAddServlet extends HttpServlet{
     
@@ -58,6 +62,16 @@ public class ManagerAddServlet extends HttpServlet{
             
 //            out.println("등록하였습니다.");
             try {
+                
+                // 사진 데이터 처리
+                Part part = request.getPart("file1");
+                if(part.getSize() > 0) {
+                    String filename = UUID.randomUUID().toString(); // 고유 파일명 갖게 해줌.
+                    part.write(this.getServletContext()
+                            .getRealPath("/upload/"+filename));
+                    m.setPhoto(filename);
+                }   // file이 제대로 저장이 되어야 db에 넣음.
+                
                 managerDao.insert(m);
                 // 오류 없이 등록에 성공했으면,
                 // 목록 페이지를 다시 요청하라고 redirect() 명령을 보낸다. 

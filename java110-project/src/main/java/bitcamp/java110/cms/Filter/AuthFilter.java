@@ -40,6 +40,7 @@ public class AuthFilter implements Filter{
             
             if(loginUser == null) {
                 httpResponse.sendRedirect("/auth/login");
+                return;
             }
         }
         

@@ -11,6 +11,7 @@ public class Member implements Serializable{
     protected String email;
     protected String password;
     protected String tel;
+    protected String photo;
   //transient 필드 : serialize 대상에서 제외된다.
 //    protected transient String password;
     
@@ -46,6 +47,13 @@ public class Member implements Serializable{
     public void setNo(int no) {
         this.no = no;
     }
+    public String getPhoto() {
+        return photo;
+    }
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+    
     
 
 }

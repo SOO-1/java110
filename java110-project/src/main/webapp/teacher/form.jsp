@@ -19,7 +19,7 @@
 <jsp:include page="../header.jsp"></jsp:include>
 
 <h1>강사 등록(MVC)</h1>
-<form action='add' method='post'>   <!-- post로 해야 비밀번호가 캐시에 남지 않음! -->
+<form action='add' method='post' enctype="multipart/form-data">
 <table>
   <tbody>
   <tr>
@@ -45,6 +45,10 @@
   <tr>
     <th>강의과목</th>
     <td><input type='text' name='subject'></td>
+  </tr>
+    <tr>
+    <th>사진</th>
+    <td><input type='file' name='file1'></td>
   </tr>
   <tr>
     <th></th>

@@ -19,7 +19,9 @@
 <jsp:include page="../header.jsp"></jsp:include>
 
 <h1>매니저 등록(MVC)</h1>
-<form action='add' method='post'>   <!-- post로 해야 비밀번호가 캐시에 남지 않음! -->
+<form action='add' method='post' enctype="multipart/form-data">   
+<!-- enctype을 지정하지 않을 경우
+application/x-www-form-urlencoded 가  default값! --> 
 <table>
   <tbody>
   <tr>
@@ -43,6 +45,10 @@
     <td><input type='text' name='position'></td>
   </tr>
   <tr>
+  <tr>
+    <th>사진</th>
+    <td><input type='file' name='file1'></td>
+  </tr>
     <th></th>
     <td><button>등록</button></td>
   </tr>

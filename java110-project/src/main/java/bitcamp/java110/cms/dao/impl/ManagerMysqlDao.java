@@ -57,6 +57,15 @@ public class ManagerMysqlDao implements ManagerDao {
                     + "')";
             stmt.executeUpdate(sql2);
             
+            if(manager.getPhoto() != null) {
+                String sql3 = "insert into p1_memb_phot(mno, photo)"
+                        + "values(" + memberNo
+                        + ",'" + manager.getPhoto()
+                        + "')";
+                stmt.executeUpdate(sql3);
+            }
+            //insert into p1_memb_photo(mno,photo) values(100,'okok.gif');
+            
             // 두 insert가 모두 성공했을 때만 서버에 완료 신호를 보낸다.
             con.commit();//commit이 들어가기 때문에 실패할 경우 rollback 필요!
             return 1;
@@ -124,9 +133,11 @@ public class ManagerMysqlDao implements ManagerDao {
                             "  m.name," + 
                             "  m.email," +
                             "  m.tel," + 
-                            "  mr.posi" + 
-                            "  from p1_mgr mr inner join p1_memb m" + 
-                            "  on mr.mrno = m.mno" +
+                            "  mr.posi," +
+                            "  mp.photo" +
+                            "  from p1_mgr mr " +
+                            "  inner join p1_memb m on mr.mrno = m.mno" + 
+                            "  left outer join p1_memb_phot mp on mr.mrno = mp.mno" +
                             "  where m.email = '" + email +"'");    //sql안에 ;넣지 않음.
 
             if(rs.next()) {
@@ -136,6 +147,7 @@ public class ManagerMysqlDao implements ManagerDao {
                 mgr.setName(rs.getString("name"));
                 mgr.setTel(rs.getString("tel"));
                 mgr.setPosition(rs.getString("posi"));
+                mgr.setPhoto(rs.getString("photo"));
 
                 return mgr;
             }
@@ -168,9 +180,11 @@ public class ManagerMysqlDao implements ManagerDao {
                             "  m.name," + 
                             "  m.email," +
                             "  m.tel," + 
-                            "  mr.posi" + 
-                            "  from p1_mgr mr inner join p1_memb m" + 
-                            "  on mr.mrno = m.mno" +
+                            "  mr.posi," +
+                            "  mp.photo" +
+                            "  from p1_mgr mr " +
+                            "  inner join p1_memb m on mr.mrno = m.mno" + 
+                            "  left outer join p1_memb_phot mp on mr.mrno = mp.mno" +
                             "  where m.mno = " + no);    //sql안에 ;넣지 않음.
 
             if(rs.next()) {
@@ -180,6 +194,7 @@ public class ManagerMysqlDao implements ManagerDao {
                 mgr.setName(rs.getString("name"));
                 mgr.setTel(rs.getString("tel"));
                 mgr.setPosition(rs.getString("posi"));
+                mgr.setPhoto(rs.getString("photo"));
 
                 return mgr;
             }
@@ -213,6 +228,11 @@ public class ManagerMysqlDao implements ManagerDao {
             
             if(count ==0)
                 throw new Exception("일치하는 번호가 없습니다.");
+            
+            
+            // member에서 지우기 전에 photo를 먼저 삭제
+            sql = "delete from p1_memb_phot where mno=" + no;
+            stmt.executeUpdate(sql);
             
             String sql2 = "delete from p1_memb where mno = " + no; //부모삭제
             stmt.executeUpdate(sql2);
@@ -281,3 +301,15 @@ public class ManagerMysqlDao implements ManagerDao {
     
     
 }
+
+/*
+ select
+      m.mno,
+      m.name,
+      m.email,
+      mr.posi,
+      mp.photo
+ from p1_mgr mr
+         inner join p1_memb m on mr.mrno = m.mno
+         join p1_memb_phot mp on mr.mrno = (+)mp.mno;
+*/
