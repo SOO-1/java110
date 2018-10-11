@@ -1,4 +1,4 @@
-package bitcamp.java110.cms.filter;
+﻿package bitcamp.java110.cms.filter;
 
 import java.io.IOException;
 
@@ -7,13 +7,14 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bitcamp.java110.cms.domain.Member;
 
-//@WebFilter("/*")
+@WebFilter("/*")
 public class AuthFilter implements Filter {
     @Override
     public void doFilter(

@@ -2,24 +2,24 @@ package bitcamp.java110.cms.service.impl;
 
 import java.util.List;
 
-import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.dao.PhotoDao;
-import bitcamp.java110.cms.domain.Manager;
-import bitcamp.java110.cms.service.ManagerService;
+import bitcamp.java110.cms.dao.TeacherDao;
+import bitcamp.java110.cms.domain.Teacher;
+import bitcamp.java110.cms.service.TeacherService;
 
-public class ManagerServiceImpl implements ManagerService {
+public class TeacherServiceImpl implements TeacherService {
 
     MemberDao memberDao;
-    ManagerDao managerDao;
+    TeacherDao teacherDao;
     PhotoDao photoDao;
 
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
 
-    public void setManagerDao(ManagerDao managerDao) {
-        this.managerDao = managerDao;
+    public void setTeacherDao(TeacherDao teacherDao) {
+        this.teacherDao = teacherDao;
     }
 
     public void setPhotoDao(PhotoDao photoDao) {
@@ -27,14 +27,14 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void add(Manager manager) {
+    public void add(Teacher teacher) {
         // 매니저 등록관 관련된 업무는 Service 객체에서 처리한다.
         try {
-            memberDao.insert(manager);
-            managerDao.insert(manager);
+            memberDao.insert(teacher);
+            teacherDao.insert(teacher);
             
-            if (manager.getPhoto() != null) {
-                photoDao.insert(manager.getNo(), manager.getPhoto());
+            if (teacher.getPhoto() != null) {
+                photoDao.insert(teacher.getNo(), teacher.getPhoto());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -42,18 +42,18 @@ public class ManagerServiceImpl implements ManagerService {
     }
     
     @Override
-    public List<Manager> list() {
-        return managerDao.findAll();
+    public List<Teacher> list() {
+        return teacherDao.findAll();
     }
     
     @Override
-    public Manager get(int no) {
-        return managerDao.findByNo(no);
+    public Teacher get(int no) {
+        return teacherDao.findByNo(no);
     }
     
     @Override
     public void delete(int no) {
-        if (managerDao.delete(no) == 0) {
+        if (teacherDao.delete(no) == 0) {
             throw new RuntimeException("해당 번호의 데이터가 없습니다.");
         }
         photoDao.delete(no);

@@ -10,24 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.java110.cms.dao.StudentDao;
 import bitcamp.java110.cms.domain.Student;
+import bitcamp.java110.cms.service.StudentService;
 
 @WebServlet("/student/list")
-public class StudentListServlet extends HttpServlet{
-
+public class StudentListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    
+  
     @Override
     protected void doGet(
             HttpServletRequest request, 
             HttpServletResponse response) 
             throws ServletException, IOException {
         
-        StudentDao studentDao = (StudentDao)this.getServletContext()
-                .getAttribute("studentDao");
-        List<Student> list = studentDao.findAll();
-
+        StudentService studentService = (StudentService)this.getServletContext()
+                .getAttribute("studentService");
+        
+        List<Student> list = studentService.list();
         request.setAttribute("list", list);
         
         response.setContentType("text/html;charset=UTF-8");
@@ -35,7 +34,6 @@ public class StudentListServlet extends HttpServlet{
         RequestDispatcher rd = request.getRequestDispatcher(
                 "/student/list.jsp");
         rd.include(request, response);
-                
+        
     }
-   
 }
