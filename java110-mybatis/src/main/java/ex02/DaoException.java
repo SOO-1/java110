@@ -1,4 +1,4 @@
-package ex01;
+package ex02;
 
 public class DaoException extends RuntimeException {
     private static final long serialVersionUID = 1L;

@@ -26,12 +26,17 @@
 	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10/"/>
-	<classpathentry sourcepath="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/23.0/ed233607c5c11e1a13a3fd760033ed5d9fe525c2/guava-23.0-sources.jar" kind="lib" path="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/23.0/c947004bb13d18182be60077ade044099e4f26f1/guava-23.0.jar">
+	<classpathentry sourcepath="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/org.mariadb.jdbc/mariadb-java-client/2.3.0/9e761bb0474d99884a020ca562944c3a3b872bfc/mariadb-java-client-2.3.0-sources.jar" kind="lib" path="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/org.mariadb.jdbc/mariadb-java-client/2.3.0/c2b1a6002a169757d0649449288e9b3b776af76b/mariadb-java-client-2.3.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/org.mariadb.jdbc/mariadb-java-client/2.3.0/9e761bb0474d99884a020ca562944c3a3b872bfc/mariadb-java-client-2.3.0-sources.jar" kind="lib" path="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/org.mariadb.jdbc/mariadb-java-client/2.3.0/c2b1a6002a169757d0649449288e9b3b776af76b/mariadb-java-client-2.3.0.jar">
+	<classpathentry sourcepath="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.4.6/bdf12283a2374b67a2411355947cd726bef6e800/mybatis-3.4.6-sources.jar" kind="lib" path="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.4.6/a77a546f679533837f6c6a75c034b669f3ce6a2f/mybatis-3.4.6.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/23.0/ed233607c5c11e1a13a3fd760033ed5d9fe525c2/guava-23.0-sources.jar" kind="lib" path="C:/Users/bit-user/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/23.0/c947004bb13d18182be60077ade044099e4f26f1/guava-23.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
