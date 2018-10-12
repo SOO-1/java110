@@ -1,0 +1,25 @@
+
+plugins {
+
+    id 'java'
+    id 'eclipse'
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '1.8' //1.8버전까지는 Ok, compile해라.(10버전이면 error가 뜨게 됨)
+    targetCompatibility = '1.8' //1.8이상에서 실행되게.
+}
+
+dependencies {
+ 
+    compile 'com.google.guava:guava:23.0'
+    testCompile 'junit:junit:4.12'
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.3.0'
+}
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    mavenCentral()
+}

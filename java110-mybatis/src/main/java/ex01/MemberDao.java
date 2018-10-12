@@ -1,16 +1,13 @@
-package bitcamp.java110.cms.dao.impl;
+package ex01;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import bitcamp.java110.cms.dao.DaoException;
-import bitcamp.java110.cms.dao.MemberDao;
-import bitcamp.java110.cms.domain.Member;
-import bitcamp.java110.cms.util.DataSource;
-
-public class MemberMysqlDao implements MemberDao {
+public class MemberDao {
     
     DataSource dataSource;
     
@@ -18,7 +15,6 @@ public class MemberMysqlDao implements MemberDao {
         this.dataSource = dataSource;
     }
 
-    @Override
     public int insert(Member member) throws DaoException {
         Connection con = null;
         PreparedStatement stmt = null;
@@ -52,7 +48,6 @@ public class MemberMysqlDao implements MemberDao {
         }
     }
     
-    @Override
     public int delete(int no) throws DaoException {
         Connection con = null;
         PreparedStatement stmt = null;
@@ -72,28 +67,44 @@ public class MemberMysqlDao implements MemberDao {
             dataSource.returnConnection(con);
         }
     }
+    
+    public List<Member> findAll() throws DaoException {
+        
+        ArrayList<Member> list = new ArrayList<>();
+        
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            con = dataSource.getConnection();
+            String sql = "select" + 
+                    " m.mno," +
+                    " m.name," + 
+                    " m.email," + 
+                    " m.tel" + 
+                    " from p1_memb m";
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Member m = new Member();
+                m.setNo(rs.getInt("mno"));
+                m.setEmail(rs.getString("email"));
+                m.setName(rs.getString("name"));
+                m.setTel(rs.getString("tel"));
+                
+                list.add(m);
+            }
+        } catch (Exception e) {
+            throw new DaoException(e);
+            
+        } finally {
+            try {rs.close();} catch (Exception e) {}
+            try {stmt.close();} catch (Exception e) {}
+            dataSource.returnConnection(con);
+        }
+        return list;
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
