@@ -3,6 +3,9 @@ package bitcamp.java110.cms.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.dao.PhotoDao;
 import bitcamp.java110.cms.dao.StudentDao;
@@ -11,27 +14,25 @@ import bitcamp.java110.cms.service.StudentService;
 
 public class StudentServiceImpl implements StudentService {
 
-    MemberDao memberDao;
-    StudentDao studentDao;
-    PhotoDao photoDao;
+    SqlSessionFactory sqlSessionFactory;
 
-    public void setMemberDao(MemberDao memberDao) {
-        this.memberDao = memberDao;
-    }
-
-    public void setStudentDao(StudentDao studentDao) {
-        this.studentDao = studentDao;
-    }
-
-    public void setPhotoDao(PhotoDao photoDao) {
-        this.photoDao = photoDao;
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
 
     @Override
     public void add(Student student) {
 
-        memberDao.insert(student);
-        studentDao.insert(student);
+        SqlSession session = sqlSessionFactory.openSession();
+        
+        try{
+            
+            MemberDao memberDao = session.getMapper(MemberDao.class);
+            StudentDao studentDao = session.getMapper(StudentDao.class);
+            PhotoDao photoDao = session.getMapper(PhotoDao.class);
+
+            memberDao.insert(student);
+            studentDao.insert(student);
 
         if (student.getPhoto() != null) {
 
@@ -41,31 +42,64 @@ public class StudentServiceImpl implements StudentService {
 
             photoDao.insert(params);
         }
+        
+        session.commit();
+    }catch(Exception e) {
+        session.rollback();
+        throw e;
+    }finally {
+        session.close();
     }
+}
 
     @Override
     public List<Student> list(int pageNo, int pageSize) {
 
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("rowNo", (pageNo-1)*pageSize);
-        params.put("size", pageSize);
+        try(SqlSession session = sqlSessionFactory.openSession()){
 
-        return studentDao.findAll(params);
+            StudentDao studentDao = session.getMapper(StudentDao.class);
+
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("rowNo", (pageNo-1)*pageSize);
+            params.put("size", pageSize);
+
+            return studentDao.findAll(params);
+        }
     }
 
     @Override
     public Student get(int no) {
-        return studentDao.findByNo(no);
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            StudentDao studentDao = session.getMapper(StudentDao.class);
+            return studentDao.findByNo(no);
+        }
     }
 
     @Override
     public void delete(int no) {
 
-        if (studentDao.delete(no) == 0) {
-            throw new RuntimeException("해당 번호의 데이터가 없습니다.");
+        SqlSession session = sqlSessionFactory.openSession();
+
+        try{
+
+            MemberDao memberDao = session.getMapper(MemberDao.class);
+            StudentDao studentDao = session.getMapper(StudentDao.class);
+            PhotoDao photoDao = session.getMapper(PhotoDao.class);
+
+
+            if (studentDao.delete(no) == 0) {
+                throw new RuntimeException("해당 번호의 데이터가 없습니다.");
+            }
+            photoDao.delete(no);
+            memberDao.delete(no);
+
+            session.commit();
+        }catch(Exception e) {
+            session.rollback();
+            throw e;
+        }finally {
+            session.close();
         }
-        photoDao.delete(no);
-        memberDao.delete(no);
 
     }
 }

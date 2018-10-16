@@ -2,6 +2,26 @@
 
 비트캠프 자바110기 실습 프로젝트
              
+##tag:v5.8
+- Mybatis에서 자동으로 생성해주는 Mapper(DAO) 객체 사용하기
+- Mybatis에서 트랜잭션 다루기
+- 작업
+    - 기존 DAO 구현체를 모두 제거한다.
+    - Service 객체에 SqlSessionFactory를 주입한다.
+    - Service 객체는 SqlSessionFactory를 통해 DAO를 얻어 쓴다.
+    - insert, delete 메서드에 트랜잭션을 적용한다.
+    - ContextLoaderListener 변경
+       
+             
+##tag:v5.7
+- Mybatis persistence framework 적용하기
+- 작업
+    - build.gradle에 mybatis 라이브러리 등록
+    - 'gradle eclipse'실행
+    - 이클립스 프로젝트 리프래시
+    - DAO, Service, Servlet 변경
+    - ContextLoaderListener 변경
+                    
 ##tag:v5.6
 - Statement PreparedStatement로 변경하기
     - SQL 삽입 해킹을 방지하기
