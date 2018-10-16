@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.java110.cms.dao.StudentDao"> <!-- namespace를 package명으로 -->
+    
+    <resultMap type="student"   id="studentMap">
+        <id column="mno"        property="no"/>
+        <result column="name"   property="name"/>
+        <result column="email"  property="email"/>
+        <result column="schl"    property="school"/>
+        <result column="work"   property="working"/>
+        <result column="photo"   property="photo"/>
+    </resultMap>
+    
+    <sql id="select1">
+        select
+                m.mno,
+                m.name,
+                m.email,
+                m.tel,
+                s.schl,
+                (s.work = 'Y') working,
+                mp.photo
+        from 
+                p1_stud s
+                inner join p1_memb m on s.sno = m.mno
+                left outer join p1_memb_phot mp on s.sno = mp.mno
+    </sql>
+                        
+                        <!-- resultType에 resultMap의 id~! -->
+    <select id="findAll" resultMap="studentMap" parameterType="map">
+        select
+                m.mno,
+                m.name,
+                m.email,
+                m.tel,
+                s.schl,
+                (s.work = 'Y') working
+        from 
+                p1_stud s 
+                inner join p1_memb m on s.sno = m.mno
+        limit #{rowNo}, #{size}
+    </select>
+    
+    <select id="findByEmail" resultMap="studentMap" parameterType="string">
+        <include refid="select1"></include>
+        where
+            m.email=#{value}
+    </select>
+    
+    
+    <select id="findByNo" resultMap="studentMap" parameterType="int">
+        <include refid="select1"></include>
+        where
+                m.mno = #{value} <!-- parametertype이 String 과 Primitive타입인 경우 이름을 마음대로 OK -->
+    </select>
+    
+    <select id="findByEmailPassword" resultMap="studentMap" parameterType="map">
+        <include refid="select1"></include>
+        where
+                m.email = #{email} and m.pwd = password(#{password})
+                
+    </select>
+    
+    <insert id="insert" parameterType="student">
+        insert into p1_stud(sno,schl,work)
+         values(#{no}, #{school}, if(#{working}, 'Y', 'N'))
+    </insert>
+    
+    
+    <delete id="delete"  parameterType="int">
+        delete from p1_stud
+        where sno = #{value}
+    </delete>
+    
+</mapper>

@@ -50,6 +50,7 @@ public class MemberDao {
     public Member findByNo(int no) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
+            // MemberDao.xml의 namespace.id
             return sqlSession.selectOne("memberdao.findByNo", no);
         } finally {
             sqlSession.close();

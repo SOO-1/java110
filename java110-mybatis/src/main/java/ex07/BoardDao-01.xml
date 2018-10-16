@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boarddao">
+
+  <resultMap type="board" id="boardMap">
+    <id column="bno" property="no"/> <!-- 프라이머리 키 컬럼인 경우 id라고 해야한다. -->
+    <result column="titl" property="title"/>
+    <result column="cont" property="content"/>
+    <result column="cnt" property="viewCount"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="mno" property="memberNo"/>
+    <result column="name" property="writer"/>
+  </resultMap>                       
+
+  <resultMap type="board" id="boardMap2">
+    <id column="bno" property="no"/> <!-- 프라이머리 키 컬럼인 경우 id라고 해야한다. -->
+    <result column="titl" property="title"/>
+    <result column="cont" property="content"/>
+    <result column="cnt" property="viewCount"/>
+    <result column="cdt" property="createdDate"/>
+    <association property="member" javaType="member">
+    <id column="mno" property="no"/> <!-- data구분키로서 id는 필수로 있어야함! -->
+    <result column="name" property="name"/>
+    <result column="email" property="email"/>
+    <result column="tel" property="tel"/>
+    </association>
+  </resultMap>                       
+
+    <!-- 모든 join을 고려해주기 어려울 때 boardMap말고 map을 써서 리턴해주는 경우도 다수.  -->
+  <select id="findAll" resultMap="boardMap" parameterType="map"> 
+     select 
+      b.bno,
+      b.titl, 
+      b.cnt, 
+      b.cdt,
+      b.mno,
+      m.name 
+    from p1_board b
+        inner join p1_memb m using (mno) <!-- on b.mno=m.mno -->
+        <!-- 컬럼명이 같을 경우, using을 사용 가능! -->
+        <!-- sql문은 자바로 실행하기 전, powershell에서 먼저 실행해보기! -->
+    limit #{rowNo}, #{pageSize}
+  </select>
+  
+  <select id="findByNo" resultMap="boardMap2" parameterType="int">
+    select 
+      b.bno,
+      b.titl, 
+      b.cont,
+      b.cnt, 
+      b.cdt,
+      b.mno,
+      m.name,
+      m.email,
+      m.tel
+      from p1_board b
+        inner join p1_memb m using (mno)
+    where bno=#{value}
+  </select>
+  
+  <insert id="insert" parameterType="board"
+          useGeneratedKeys="true" keyColumn="bno" keyProperty="no">
+    insert into p1_board(titl, cont, cnt, cdt, mno)
+    values(#{titl},#{cont},0, now(), #{memberNo})
+    <!-- getName, getEmail...의 리턴값을 넣으라는 의미 -->
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+    delete from p1_board 
+    where bno=#{value}
+  </delete>
+</mapper>

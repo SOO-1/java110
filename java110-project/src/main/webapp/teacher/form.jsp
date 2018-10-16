@@ -44,7 +44,7 @@
   </tr>
   <tr>
     <th>강의과목</th>
-    <td><input type='text' name='subject'></td>
+    <td><input type='text' name='subjects'></td>
   </tr>
     <tr>
     <th>사진</th>
