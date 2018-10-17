@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <bean id="n1" class="ex03.Car"/> <!-- scope을 지정하지 않아도 기본이 singleton! -->
+    
+    <bean id="n2" class="ex03.Car" scope="singleton"/> <!-- singleton은 여러번 꺼내도 같은 객체를 갖게 됨. -->
+    
+    <bean id="n3" class="ex03.Car" scope="prototype"/>
+        
+</beans>
