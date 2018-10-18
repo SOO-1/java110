@@ -12,14 +12,15 @@
     <!-- 자바 코드 :
          Car obj = new Car();
          obj.setModel("소나타");
-         obj.setCc(1980);
+         obj.setCc(Integer.parseInt("1980"));
          obj.setMaker("현대자동차");
                         컨테이너.보관("c1",obj);
      -->
 
+    <!-- value에 타입을 지정해줘도 됨! -->
     <bean id="c2" class="ex05.Car">
-        <property name="model"><value>소나타</value></property>  <!-- 타입 기본은 문자형!, 지정안해줘도 OK -->
-        <property name="cc"><value>1980</value></property>
+        <property name="model"><value type="java.lang.String">소나타</value></property>  <!-- 타입 기본은 문자형!, 지정안해줘도 OK -->
+        <property name="cc"><value type="int">1980</value></property> <!-- 속성이 아니라 자식 태그로 값을 줄 수 있음 -->
         <property name="maker"><value>현대자동차</value></property>
     </bean>
 
@@ -33,14 +34,14 @@
         <property name="model"><value>트럭1</value></property>  
         <property name="cc"><value>10000</value></property>
         <property name="maker"><value>비트자동차</value></property>
-        <property name="engine"><ref bean="e1"/></property>
+        <property name="engine"><ref bean="e1"/></property>  <!-- 객체를 주입할 때는 ref로! -->
     </bean>     
  
      <bean id="c4" class="ex05.Car">
         <property name="model" value="트럭2"/>
         <property name="cc" value="10000"/>
         <property name="maker" value="비트자동차"/>
-        <property name="engine" ref="e1"/>
+        <property name="engine" ref="e1"/> <!-- 위는 자식객체로, 여기는 속성으로! -->
     </bean>
     <!-- 자바 코드 :
          Car obj = new Car();
@@ -56,7 +57,7 @@
         <property name="cc" value="10000"/>
         <property name="maker" value="캠프자동차"/>
         <property name="engine">
-            <bean class="ex05.Engine">
+            <bean class="ex05.Engine"> <!-- 엔진객체를 즉시 만듦 -->
                 <property name="maker" value="캠프자동차"></property>
                 <property name="valve" value="32"></property>
                 <property name="diesel" value="false"></property>
