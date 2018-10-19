@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import bitcamp.java110.cms.dao.ManagerDao;
 import bitcamp.java110.cms.dao.StudentDao;
@@ -11,13 +13,11 @@ import bitcamp.java110.cms.dao.TeacherDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService;
 
+@Service //Component로 해도 되지만, component중 service의 역할을 한다는 것을 뚜렷히 하기 위해!
 public class AuthServiceImpl implements AuthService {
 
+    @Autowired // 필드에 붙이면 setter를 만들 필요 X
     SqlSessionFactory sqlSessionFactory;
-
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
 
     @Override
     public Member getMember(
