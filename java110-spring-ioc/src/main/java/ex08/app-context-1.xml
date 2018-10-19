@@ -25,6 +25,7 @@
      -->
 
     <!-- id는 쓸 필요 없고, 클래스만 작성하여 @Autowired 애노테이션 처리 가능 -->
+    <!-- 내가 쓰는게 아니고, 스프링 IoC 컨테이너가 사용하기 때문에 id 없음. -->
     <!-- 다음 클래스는 객체를 생성한 후 @Autowired 애노테이션을 처리한다. -->
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
     
