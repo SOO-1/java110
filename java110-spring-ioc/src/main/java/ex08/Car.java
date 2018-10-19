@@ -1,9 +1,8 @@
-package ex05;
+package ex08;
 
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class Car {
 
@@ -13,9 +12,6 @@ public class Car {
     private int cc;
     private Date createdDate;
     private Engine engine;
-    private CD[] cds;
-    private Set<Tire> tires;
-    private Map<String, Object> options;
     
     public Car() {
         System.out.println("Car() 호출됨");
@@ -45,7 +41,6 @@ public class Car {
     }
 
     public void setNo(int no) {
-        System.out.println("Car.setNo()");
         this.no = no;
     }
 
@@ -54,7 +49,6 @@ public class Car {
     }
 
     public void setModel(String model) {
-        System.out.println("Car.setModel()");
         this.model = model;
     }
 
@@ -63,7 +57,6 @@ public class Car {
     }
 
     public void setMaker(String maker) {
-        System.out.println("Car.setMaker()");
         this.maker = maker;
     }
 
@@ -72,7 +65,6 @@ public class Car {
     }
 
     public void setCc(int cc) {
-        System.out.println("Car.setCc()");
         this.cc = cc;
     }
 
@@ -81,7 +73,6 @@ public class Car {
     }
 
     public void setCreatedDate(Date createdDate) {
-        System.out.println("Car.setCreatedDate()");
         this.createdDate = createdDate;
     }
 
@@ -89,44 +80,20 @@ public class Car {
         return engine;
     }
 
+    //@Autowired // 해당 의존 객체가 없으면 스프링 IoC 컨테이너는 예외를 발생시킨다!
+    @Autowired(required=false) // 없으면 이 메서드를 호출하지 않는다.
     public void setEngine(Engine engine) {
-        System.out.println("Car.setEngine()");
         this.engine = engine;
-    }
-    
-    public CD[] getCds() {
-        return cds;
-    }
-
-    public void setCds(CD[] cds) {
-        System.out.println("Car.setCds()");
-        this.cds = cds;
-    }
-
-    public Set<Tire> getTires() {
-        return tires;
-    }
-
-    public void setTires(Set<Tire> tires) {
-        System.out.println("Car.setTires()");
-        this.tires = tires;
-    }
-
-    public Map<String, Object> getOptions() {
-        return options;
-    }
-
-    public void setOptions(Map<String, Object> options) {
-        System.out.println("Car.setOptions()");
-        this.options = options;
     }
 
     @Override
     public String toString() {
         return "Car [no=" + no + ", model=" + model + ", maker=" + maker + ", cc=" + cc + ", createdDate=" + createdDate
-                + ", engine=" + engine + ", cds=" + Arrays.toString(cds) + ", tires=" + tires + ", options=" + options
-                + "]";
+                + ", engine=" + engine + "]";
     }
+
  
+
+
    
 }
