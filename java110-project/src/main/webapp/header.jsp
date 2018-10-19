@@ -25,7 +25,7 @@ if(loginUser == null) {
     }
     
 %>
-    <li>[<%=loginType %>]<%=loginUser.getName()%>(<a href = '/auth/logout'>로그아웃</a></li>
+    <li>[<%=loginType %>]<%=loginUser.getName()%>(<a href = '/auth/logout'>로그아웃</a>)</li>
 <%
 }   
 %>
