@@ -9,18 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import bitcamp.java110.cms.domain.Manager;
+import bitcamp.java110.cms.mvc.RequestMapping;
 import bitcamp.java110.cms.service.ManagerService;
-import bitcamp.java110.cms.web.PageController;
 
-// 더 이상 servlet이 아님! 매번 ioc 컨테이너 꺼낼 필요 X
-@Component("/manager/list") //Spring IoC Container에의해 관리받음. => 의존객체주입받을 수 있음.
-public class ManagerListController implements PageController { 
+@Component // managerListController (맨 앞글자만 소문자)
+public class ManagerListController { 
     
     @Autowired
     ManagerService managerService;  // Component가 되면서 주입받을 수 있게 됨.
     
-    @Override
-    public String service(
+    @RequestMapping("/manager/list")
+    public String list(
             HttpServletRequest request, 
             HttpServletResponse response){
         

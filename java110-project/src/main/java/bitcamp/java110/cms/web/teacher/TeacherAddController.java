@@ -10,27 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import bitcamp.java110.cms.domain.Teacher;
+import bitcamp.java110.cms.mvc.RequestMapping;
 import bitcamp.java110.cms.service.TeacherService;
-import bitcamp.java110.cms.web.PageController;
 
-@Component("/teacher/add")
-public class TeacherAddController implements PageController{
+@Component
+public class TeacherAddController {
 
     @Autowired
     TeacherService teacherService;
-    
-    @Override
-    public String service(
+
+    @RequestMapping("/teacher/add")
+    public String add(
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception{
-        
+
         if(request.getMethod().equals("GET")) {
-            
+
             return "/teacher/form.jsp";
         }
-        
+
         request.setCharacterEncoding("UTF-8");
-        
+
         Teacher t = new Teacher();
         t.setName(request.getParameter("name"));
         t.setEmail(request.getParameter("email"));
@@ -38,18 +38,18 @@ public class TeacherAddController implements PageController{
         t.setTel(request.getParameter("tel"));
         t.setPay(Integer.parseInt(request.getParameter("pay")));
         t.setSubjects(request.getParameter("subjects"));
-        
-            Part part = request.getPart("file1");
-            if (part.getSize() > 0) {
-                String filename = UUID.randomUUID().toString();
-                part.write(request.getServletContext()
-                           .getRealPath("/upload/" + filename));
-                t.setPhoto(filename);
-            }
-            
-            teacherService.add(t);
-            return "redirect:list";
-        
+
+        Part part = request.getPart("file1");
+        if (part.getSize() > 0) {
+            String filename = UUID.randomUUID().toString();
+            part.write(request.getServletContext()
+                    .getRealPath("/upload/" + filename));
+            t.setPhoto(filename);
+        }
+
+        teacherService.add(t);
+        return "redirect:list";
+
     }
 
 }
