@@ -33,14 +33,14 @@ public class ManagerDeleteServlet extends HttpServlet {
                 
         try {
             managerService.delete(no);
-            response.sendRedirect("list");
+            request.setAttribute("viewUrl", "redirect:list");
             
         } catch (Exception e) {
             request.setAttribute("error", e);
             request.setAttribute("message", "매니저 삭제 오류!");
             request.setAttribute("refresh", "3;url=list");
+            request.setAttribute("viewUrl", "/error.jsp");
             
-            request.getRequestDispatcher("/error").forward(request, response);
         }
         
     }

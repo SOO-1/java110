@@ -46,10 +46,23 @@
         <servlet-name>error</servlet-name>
         <jsp-file>/error.jsp</jsp-file>
     </servlet>
+
+    <servlet>
+        <servlet-name>app</servlet-name>
+        <servlet-class>bitcamp.java110.cms.servlet.DispatcherServlet</servlet-class>
+        <multipart-config>
+            <max-file-size>2000000</max-file-size>
+        </multipart-config>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>error</servlet-name>
         <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>app</servlet-name>
+        <url-pattern>/app/*</url-pattern>
     </servlet-mapping>
     
     <!-- 클라이언트가 요청한 URL에 대해 기본 파일을 찾을 때 우선 순위 -->

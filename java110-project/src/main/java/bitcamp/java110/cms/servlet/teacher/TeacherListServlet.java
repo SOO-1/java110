@@ -3,7 +3,6 @@ package bitcamp.java110.cms.servlet.teacher;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,11 +48,6 @@ public class TeacherListServlet extends HttpServlet {
        
         List<Teacher> list = teacherService.list(pageNo, pageSize);
         request.setAttribute("list", list);
-        
-        response.setContentType("text/html;charset=UTF-8");
-        
-        RequestDispatcher rd = request.getRequestDispatcher(
-                "/teacher/list.jsp");
-        rd.include(request, response);
+        request.setAttribute("viewUrl", "/teacher/list.jsp");
     }
 }
