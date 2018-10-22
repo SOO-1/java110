@@ -1,28 +1,28 @@
-package bitcamp.java110.cms.servlet.manager;
+package bitcamp.java110.cms.web.manager;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import bitcamp.java110.cms.domain.Manager;
 import bitcamp.java110.cms.service.ManagerService;
+import bitcamp.java110.cms.web.PageController;
 
-@WebServlet("/manager/list")
-public class ManagerListServlet extends HttpServlet { 
-    private static final long serialVersionUID = 1L;
+// 더 이상 servlet이 아님! 매번 ioc 컨테이너 꺼낼 필요 X
+@Component("/manager/list") //Spring IoC Container에의해 관리받음. => 의존객체주입받을 수 있음.
+public class ManagerListController implements PageController { 
+    
+    @Autowired
+    ManagerService managerService;  // Component가 되면서 주입받을 수 있게 됨.
     
     @Override
-    protected void doGet(
+    public String service(
             HttpServletRequest request, 
-            HttpServletResponse response) 
-            throws ServletException, IOException {
+            HttpServletResponse response){
         
         int pageNo = 1;
         int pageSize = 3;
@@ -39,17 +39,13 @@ public class ManagerListServlet extends HttpServlet {
                 pageNo = 3;
         }
         
-        ApplicationContext iocContainer = 
-                (ApplicationContext)this.getServletContext()
-                                        .getAttribute("iocContainer");
-        
-        ManagerService managerService = 
-                iocContainer.getBean(ManagerService.class);
-
         List<Manager> list = managerService.list(pageNo, pageSize);
 
         request.setAttribute("list", list);
-        request.setAttribute("viewUrl", "/manager/list.jsp");
+
+        return "/manager/list.jsp";
+        
+        
         
     }
 }
