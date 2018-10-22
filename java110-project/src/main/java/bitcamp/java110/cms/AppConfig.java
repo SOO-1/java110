@@ -1,9 +1,6 @@
 package bitcamp.java110.cms;
 
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
-
+import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -12,13 +9,10 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-
-import bitcamp.java110.cms.service.ManagerService;
 
 
 @ComponentScan(basePackages="bitcamp.java110.cms")  // ""패키지에서 @repository, service, controller와 같은것 찾게 됨.
@@ -30,6 +24,8 @@ import bitcamp.java110.cms.service.ManagerService;
 // Mybatis에서 자동으로 DAO를 생성할 때 사용할 인터페이스가 들어 있는 패키지 설정
 @MapperScan("bitcamp.java110.cms.dao")
 public class AppConfig {
+    
+    public static ServletContext sc;
 
     @Autowired
     Environment env;//properties를 읽어서 데이터를 가지고 있음.
@@ -82,6 +78,10 @@ public class AppConfig {
         }
     }
 
+    @Bean
+    public ServletContext servletContext() {
+        return sc;
+    }
 /*    public static void main(String[] args) {
 
         // Java Config를 사용할 때는 다음 IoC 컨테이너를 사용한다.

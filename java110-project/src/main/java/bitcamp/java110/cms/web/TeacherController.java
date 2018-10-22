@@ -3,8 +3,8 @@ package bitcamp.java110.cms.web;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,11 @@ public class TeacherController {
     @Autowired
     TeacherService teacherService;
 
+    @Autowired
+    ServletContext sc; 
+    
     @RequestMapping("/teacher/list")
-    public String list(
-            HttpServletRequest request, 
-            HttpServletResponse response) {
+    public String list(HttpServletRequest request){
         
         int pageNo = 1;
         int pageSize = 3;
@@ -45,20 +46,14 @@ public class TeacherController {
         return "/teacher/list.jsp";
     }
     @RequestMapping("/teacher/detail")
-    public String detail(
-            HttpServletRequest request, 
-            HttpServletResponse response){
-
+    public String detail(HttpServletRequest request){
         int no = Integer.parseInt(request.getParameter("no"));
         Teacher t = teacherService.get(no);
         request.setAttribute("teacher", t);
         return "/teacher/detail.jsp";
     }
     @RequestMapping("/teacher/add")
-    public String add(
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception{
-
+    public String add(HttpServletRequest request) throws Exception {
         if(request.getMethod().equals("GET")) {
 
             return "/teacher/form.jsp";
@@ -85,10 +80,7 @@ public class TeacherController {
         return "redirect:list";
     }
     @RequestMapping("/teacher/delete")
-    public String delete(
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception{
-
+    public String delete( HttpServletRequest request) throws Exception{
         int no = Integer.parseInt(request.getParameter("no"));
         teacherService.delete(no);
         return "redirect:list";

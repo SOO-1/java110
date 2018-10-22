@@ -3,8 +3,8 @@ package bitcamp.java110.cms.web;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,13 @@ public class ManagerController {
 
     @Autowired
     ManagerService managerService;  // Component가 되면서 주입받을 수 있게 됨.
+    
+    // spring web mvc 쓸 때, servletContext는 파라미터값으로가 아니라, 이렇게 주입받아야만 함!
+    @Autowired
+    ServletContext sc; // ioc에게 servletcontext 뽑아달라
 
     @RequestMapping("/manager/list")
-    public String list(
-            HttpServletRequest request, 
-            HttpServletResponse response){
+    public String list(HttpServletRequest request){
 
         int pageNo = 1;
         int pageSize = 3;
@@ -48,9 +50,7 @@ public class ManagerController {
     }
 
     @RequestMapping("/manager/detail")
-    public String detail(
-            HttpServletRequest request, 
-            HttpServletResponse response){
+    public String detail(HttpServletRequest request){
 
         int no = Integer.parseInt(request.getParameter("no"));
         Manager m = managerService.get(no);
@@ -59,9 +59,7 @@ public class ManagerController {
     }
 
     @RequestMapping("/manager/add")
-    public String add(
-            HttpServletRequest request, 
-            HttpServletResponse response)throws Exception {
+    public String add(HttpServletRequest request) throws Exception {
 
         if(request.getMethod().equals("GET")) {
 
@@ -80,8 +78,7 @@ public class ManagerController {
         Part part = request.getPart("file1");
         if (part.getSize() > 0) {
             String filename = UUID.randomUUID().toString();
-            part.write(request.getServletContext()
-                    .getRealPath("/upload/" + filename));
+            part.write(sc.getRealPath("/upload/" + filename));
             m.setPhoto(filename);
         }
         managerService.add(m);
@@ -89,15 +86,12 @@ public class ManagerController {
     }
 
     @RequestMapping("/manager/delete")
-    public String delete(
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception{
+    public String delete( HttpServletRequest request) throws Exception{
 
         int no = Integer.parseInt(request.getParameter("no"));
 
         managerService.delete(no);
         return "redirect:list";
     }
-
 
 }

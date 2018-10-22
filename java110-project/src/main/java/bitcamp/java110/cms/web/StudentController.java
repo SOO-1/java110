@@ -3,8 +3,8 @@ package bitcamp.java110.cms.web;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,11 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    @RequestMapping("/student/list")
-    public String list(
-            HttpServletRequest request, 
-            HttpServletResponse response){
+    @Autowired
+    ServletContext sc;
 
+    @RequestMapping("/student/list")
+    public String list(HttpServletRequest request){
         int pageNo = 1;
         int pageSize = 3;
 
@@ -45,20 +45,14 @@ public class StudentController {
         return "/student/list.jsp";
     }
     @RequestMapping("/student/detail")
-    public String detail(
-            HttpServletRequest request, 
-            HttpServletResponse response) {
-
+    public String detail(HttpServletRequest request){
         int no = Integer.parseInt(request.getParameter("no"));
         Student s = studentService.get(no);
         request.setAttribute("student", s);
         return "/student/detail.jsp";
     }
     @RequestMapping("/student/add")
-    public String add(
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception{
-
+    public String add(HttpServletRequest request) throws Exception {
         if(request.getMethod().equals("GET")) {
 
             return "/student/form.jsp";
@@ -86,10 +80,7 @@ public class StudentController {
         return "redirect:list";
     }
     @RequestMapping("/student/delete")
-    public String delete(
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception{
-
+    public String delete( HttpServletRequest request) throws Exception{
         int no = Integer.parseInt(request.getParameter("no"));
 
         studentService.delete(no);
