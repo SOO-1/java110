@@ -57,28 +57,13 @@ public class ManagerController {
     @RequestMapping("/manager/add")
     public String add(  // property이름으로 꽂을 것이기 때문에, property와 parameter 이름이 같아야 함!
             Manager manager,
-/*          
-            @RequestParam("name") String name,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("tel") String tel,
-            @RequestParam("position") String position,
-*/            HttpServletRequest request) throws Exception {
+            HttpServletRequest request) throws Exception {
 
         if(request.getMethod().equals("GET")) {
 
             return "/manager/form.jsp";
         }
 
-        request.setCharacterEncoding("UTF-8");
-/*
-        Manager m = new Manager();
-        m.setName(name);
-        m.setEmail(email);
-        m.setPassword(password);
-        m.setTel(tel);
-        m.setPosition(position);
-*/
         // 사진 데이터 처리
         Part part = request.getPart("file1");
         if (part.getSize() > 0) {
@@ -91,9 +76,7 @@ public class ManagerController {
     }
 
     @RequestMapping("/manager/delete")
-    public String delete( 
-            @RequestParam("no") int no,
-            HttpServletRequest request) throws Exception{
+    public String delete(@RequestParam("no") int no) throws Exception{
 
         managerService.delete(no);
         return "redirect:list";

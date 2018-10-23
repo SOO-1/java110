@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.web;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -28,7 +29,7 @@ public class StudentController {
     public String list(
             @RequestParam(value="pageNo", defaultValue="1") int pageNo,
             @RequestParam(value="pageSize", defaultValue="3") int pageSize,
-            HttpServletRequest request){
+            Map<String, Object> map){
 
         if( pageNo < 1)
             pageNo = 1;
@@ -36,17 +37,17 @@ public class StudentController {
             pageNo = 3;
 
         List<Student> list = studentService.list(pageNo, pageSize);
-        request.setAttribute("list", list);
+        map.put("list", list);
         return "/student/list.jsp";
     }
     
     @RequestMapping("/student/detail")
     public String detail(
             @RequestParam("no") int no,
-            HttpServletRequest request){
+            Map<String, Object> map){
 
         Student s = studentService.get(no);
-        request.setAttribute("student", s);
+        map.put("student", s);
         return "/student/detail.jsp";
     }
     
@@ -60,8 +61,6 @@ public class StudentController {
             return "/student/form.jsp";
         }
 
-        request.setCharacterEncoding("UTF-8");
-
         Part part = request.getPart("file1");
         if (part.getSize() > 0) {
             String filename = UUID.randomUUID().toString();
@@ -74,9 +73,7 @@ public class StudentController {
         return "redirect:list";
     }
     @RequestMapping("/student/delete")
-    public String delete(
-            @RequestParam("no") int no,
-            HttpServletRequest request) throws Exception{
+    public String delete(@RequestParam("no") int no) throws Exception{
 
         studentService.delete(no);
         return "redirect:list";
