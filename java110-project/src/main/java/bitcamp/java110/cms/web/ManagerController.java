@@ -1,6 +1,9 @@
+// 가능한 servlet과 관련된 것을 controller에서 없애기!
+
 package bitcamp.java110.cms.web;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import bitcamp.java110.cms.domain.Manager;
 import bitcamp.java110.cms.mvc.RequestMapping;
+import bitcamp.java110.cms.mvc.RequestParam;
 import bitcamp.java110.cms.service.ManagerService;
 
 @Component // managerListController (맨 앞글자만 소문자)
@@ -25,41 +29,41 @@ public class ManagerController {
     ServletContext sc; // ioc에게 servletcontext 뽑아달라
 
     @RequestMapping("/manager/list")
-    public String list(HttpServletRequest request){
+    public String list(
+            @RequestParam(value="pageNo", defaultValue="1") int pageNo,
+            @RequestParam(value="pageSize", defaultValue="3") int pageSize,
+            Map<String, Object> map){
 
-        int pageNo = 1;
-        int pageSize = 3;
-
-        if(request.getParameter("pageNo") != null) {
-            pageNo = Integer.parseInt(request.getParameter("pageNo"));
-            if(pageNo<1)
-                pageNo = 1;
-        }
-
-        if(request.getParameter("pageSize") != null) {
-            pageSize = Integer.parseInt(request.getParameter("pageSize"));
-            if(pageSize < 3 || pageSize >10)
-                pageNo = 3;
-        }
+        if( pageNo < 1)
+            pageNo = 1;
+        if( pageSize < 3 || pageSize > 10)
+            pageNo = 3;
 
         List<Manager> list = managerService.list(pageNo, pageSize);
-
-        request.setAttribute("list", list);
-
+        map.put("list", list); // front Controller가 map에 담은걸 꺼내서 옮김
         return "/manager/list.jsp";
     }
 
     @RequestMapping("/manager/detail")
-    public String detail(HttpServletRequest request){
-
-        int no = Integer.parseInt(request.getParameter("no"));
+    public String detail(
+            @RequestParam("no") int no,
+            Map<String, Object> map){
+        
         Manager m = managerService.get(no);
-        request.setAttribute("manager", m);
+        map.put("manager", m);
         return "/manager/detail.jsp";
     }
 
     @RequestMapping("/manager/add")
-    public String add(HttpServletRequest request) throws Exception {
+    public String add(  // property이름으로 꽂을 것이기 때문에, property와 parameter 이름이 같아야 함!
+            Manager manager,
+/*          
+            @RequestParam("name") String name,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("tel") String tel,
+            @RequestParam("position") String position,
+*/            HttpServletRequest request) throws Exception {
 
         if(request.getMethod().equals("GET")) {
 
@@ -67,28 +71,29 @@ public class ManagerController {
         }
 
         request.setCharacterEncoding("UTF-8");
-
+/*
         Manager m = new Manager();
-        m.setName(request.getParameter("name"));
-        m.setEmail(request.getParameter("email"));
-        m.setPassword(request.getParameter("password"));
-        m.setTel(request.getParameter("tel"));
-        m.setPosition(request.getParameter("position"));
-
+        m.setName(name);
+        m.setEmail(email);
+        m.setPassword(password);
+        m.setTel(tel);
+        m.setPosition(position);
+*/
+        // 사진 데이터 처리
         Part part = request.getPart("file1");
         if (part.getSize() > 0) {
             String filename = UUID.randomUUID().toString();
             part.write(sc.getRealPath("/upload/" + filename));
-            m.setPhoto(filename);
+            manager.setPhoto(filename);
         }
-        managerService.add(m);
+        managerService.add(manager);
         return "redirect:list"; // list는 redirect 하라는 뜻이다.
     }
 
     @RequestMapping("/manager/delete")
-    public String delete( HttpServletRequest request) throws Exception{
-
-        int no = Integer.parseInt(request.getParameter("no"));
+    public String delete( 
+            @RequestParam("no") int no,
+            HttpServletRequest request) throws Exception{
 
         managerService.delete(no);
         return "redirect:list";

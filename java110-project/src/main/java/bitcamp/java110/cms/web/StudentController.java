@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import bitcamp.java110.cms.domain.Student;
 import bitcamp.java110.cms.mvc.RequestMapping;
+import bitcamp.java110.cms.mvc.RequestParam;
 import bitcamp.java110.cms.service.StudentService;
 
 @Component
@@ -24,35 +25,36 @@ public class StudentController {
     ServletContext sc;
 
     @RequestMapping("/student/list")
-    public String list(HttpServletRequest request){
-        int pageNo = 1;
-        int pageSize = 3;
+    public String list(
+            @RequestParam(value="pageNo", defaultValue="1") int pageNo,
+            @RequestParam(value="pageSize", defaultValue="3") int pageSize,
+            HttpServletRequest request){
 
-        if(request.getParameter("pageNo") != null) {
-            pageNo = Integer.parseInt(request.getParameter("pageNo"));
-            if(pageNo<1)
-                pageNo = 1;
-        }
-
-        if(request.getParameter("pageSize") != null) {
-            pageSize = Integer.parseInt(request.getParameter("pageSize"));
-            if(pageSize < 3 || pageSize >10)
-                pageNo = 3;
-        }
+        if( pageNo < 1)
+            pageNo = 1;
+        if( pageSize < 3 || pageSize > 10)
+            pageNo = 3;
 
         List<Student> list = studentService.list(pageNo, pageSize);
         request.setAttribute("list", list);
         return "/student/list.jsp";
     }
+    
     @RequestMapping("/student/detail")
-    public String detail(HttpServletRequest request){
-        int no = Integer.parseInt(request.getParameter("no"));
+    public String detail(
+            @RequestParam("no") int no,
+            HttpServletRequest request){
+
         Student s = studentService.get(no);
         request.setAttribute("student", s);
         return "/student/detail.jsp";
     }
+    
     @RequestMapping("/student/add")
-    public String add(HttpServletRequest request) throws Exception {
+    public String add(
+            Student student,
+            HttpServletRequest request) throws Exception {
+        
         if(request.getMethod().equals("GET")) {
 
             return "/student/form.jsp";
@@ -60,28 +62,21 @@ public class StudentController {
 
         request.setCharacterEncoding("UTF-8");
 
-        Student s = new Student();
-        s.setName(request.getParameter("name"));
-        s.setEmail(request.getParameter("email"));
-        s.setPassword(request.getParameter("password"));
-        s.setTel(request.getParameter("tel"));
-        s.setSchool(request.getParameter("school"));
-        s.setWorking(Boolean.parseBoolean(request.getParameter("working")));
-
         Part part = request.getPart("file1");
         if (part.getSize() > 0) {
             String filename = UUID.randomUUID().toString();
             part.write(request.getServletContext()
                     .getRealPath("/upload/" + filename));
-            s.setPhoto(filename);
+            student.setPhoto(filename);
         }
 
-        studentService.add(s);
+        studentService.add(student);
         return "redirect:list";
     }
     @RequestMapping("/student/delete")
-    public String delete( HttpServletRequest request) throws Exception{
-        int no = Integer.parseInt(request.getParameter("no"));
+    public String delete(
+            @RequestParam("no") int no,
+            HttpServletRequest request) throws Exception{
 
         studentService.delete(no);
         return "redirect:list";
