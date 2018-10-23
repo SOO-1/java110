@@ -14,22 +14,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-
 @ComponentScan(basePackages="bitcamp.java110.cms")  // ""패키지에서 @repository, service, controller와 같은것 찾게 됨.
 @PropertySource("classpath:/bitcamp/java110/cms/conf/jdbc.properties")
-// 위에 지정된 properties를 찾아서 읽어서 environment에 저장. 
-// appconfig읽음. => 만들어 놓은 environment를 아래의 env에 꽂음.
-// 아래의 sql메서드를 호출하여 return값을 저장함.
-
-// Mybatis에서 자동으로 DAO를 생성할 때 사용할 인터페이스가 들어 있는 패키지 설정
 @MapperScan("bitcamp.java110.cms.dao")
 public class AppConfig {
     
-    public static ServletContext sc;
-
     @Autowired
     Environment env;//properties를 읽어서 데이터를 가지고 있음.
 
+    public AppConfig() {
+        System.out.println("AppConfig() 호출됨!");
+    }
+    
     @Bean(destroyMethod="close")
     public DataSource dataSource() {
         
@@ -78,10 +74,6 @@ public class AppConfig {
         }
     }
 
-    @Bean
-    public ServletContext servletContext() {
-        return sc;
-    }
 /*    public static void main(String[] args) {
 
         // Java Config를 사용할 때는 다음 IoC 컨테이너를 사용한다.

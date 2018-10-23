@@ -6,13 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java110.cms.domain.Member;
-import bitcamp.java110.cms.mvc.RequestMapping;
 import bitcamp.java110.cms.service.AuthService;
 
-@Component
+@Controller
 public class AuthController {
 
     @Autowired
@@ -20,6 +21,11 @@ public class AuthController {
     
     @RequestMapping("/auth/login")
     public String login(
+            // 파라미터명과 변수명이 같고, required가 필수가 아닐 경우에 생략 가능!
+            @RequestParam(value="type", required=false) String type,
+            String email,
+            String password,
+            String save,
             HttpServletRequest request, 
             HttpServletResponse response,
             HttpSession session){
@@ -27,12 +33,6 @@ public class AuthController {
         if(request.getMethod().equals("GET")) {
             return "/auth/form.jsp";
         }
-
-        String type = request.getParameter("type");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String save = request.getParameter("save");
-        
 
         if (save != null) {// 이메일 저장하기를 체크했다면,
             Cookie cookie = new Cookie("email", email);

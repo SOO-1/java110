@@ -2,6 +2,14 @@
 
 비트캠프 자바110기 실습 프로젝트
 
+##tag:v6.7
+- 기존 라이브러리를 Spring WebMVC로 교체하기
+- 작업
+    - 'spring-webmvc' 라이브러리를 추가한다.
+    - DispatcherServlet을 Spring WebMVC 클래스로 교체한다.
+    - CharacterEncodingFilter를 Spring WebMVC 클래스로 교체한다.
+    - 페이지 컨트롤러에서 사용하는 애노테이션을 Spring 애노테이션으로 교체한다.
+
 ##tag:v6.6
 - 요청 처리 메서드에서 클라이언트가 보낸 값 바로 받기
     - @RequestParam 애노테이션으로 클라이언트가 보낸 값 바로 받기
