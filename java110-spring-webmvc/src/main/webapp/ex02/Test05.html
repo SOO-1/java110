@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Test05 페이지 컨트롤러 테스트하기</h1>
+<button id="btn1">요청 : name 헤더 추가</button><br>
+<button id="btn2">요청 : age 헤더 추가</button><br>
+<button id="btn3">요청 : name과 age 헤더 추가</button><br>
+<button id="btn4">요청</button><br>
+
+
+<!-- 속도를 위해 이쪽에 둔다. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+$("#btn1").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test05",{
+        method: 'GET',
+        headers: {
+            name: encodeURIComponent("홍길동")
+        }, 
+        // 서버로부터 성공적으로 결과를 받는다면 그 결과 찍기
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+$("#btn2").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test05",{
+        method: 'GET',
+        headers: {
+            age: 20
+        }, 
+        // 서버로부터 성공적으로 결과를 받는다면 그 결과 찍기
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+$("#btn3").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test05",{
+        method: 'GET',
+        headers: {
+            age: 20,
+            name: encodeURIComponent("홍길동")
+        }, 
+        // 서버로부터 성공적으로 결과를 받는다면 그 결과 찍기
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+$("#btn4").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test05",{
+        method: 'GET',
+        // 서버로부터 성공적으로 결과를 받는다면 그 결과 찍기
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+
+
+// 메서드 이름이 대문자로 시작하면, 생성자로서 역할을 하도록. => new로 객체 생성 필요!
+// 생성자 함수
+/* function member(){   
+    console.log("member()..");
+    this.name="홍길동";
+    this.print=function(){
+        console.log(this.name);        
+    }
+}
+
+var o= new member();
+o.print();
+
+function plus2(a, b){
+    var sum = a+b;
+    return sum;
+}
+plus2.v1 = "홍길동";
+plus2.print = function(){
+    console.log(this.v1);
+}
+
+
+function plus(a, b){
+    var sum=0;
+    for(var i in arguments){
+        sum+= arguments[i];
+    }
+    return sum;
+}
+console.log(plus(10,20,30,40)); // 자바스크립트는 오버로딩 불가, 파라미터 갯수가 달라도 실행 가능!
+
+
+var obj = {
+        name : "홍길동",
+        print(){ // print : function() 으로 표현 가능
+            alert(this.name); 
+        }
+};
+
+obj.print();
+
+ */
+/*
+	var xBtn1 =  jQuery("#btn1");
+	xBtn1.click(function(e){
+	    console.log(this); // 애로우펑션(=>)에서 this는 윈도우 소속.  
+	});
+	// e는 이벤트 객체를 받기 위해 선언한 것 이나, 없어도 무방, 위의 것을 아래처럼 쓸 수 있음!
+	${"#btn1"}.click((e) => {
+	});
+*/
+
+// 아래의 두 줄의 것을 위처럼 표현
+// xBtn1.addEbentListener{()=>{}}
+// xBtn1.onclick = function(){};
+ 
+</script>
+</body>
+
+</html>

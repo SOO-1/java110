@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Test07 페이지 컨트롤러 테스트하기</h1>
+<button id="btn1">요청 : Content-Type: "text/plain"</button><br>
+<button id="btn2">요청 : Content-Type: "text/csv"</button><br>
+<button id="btn3">요청 : Content-Type: "application/x-www-form-urlencoded"</button><br>
+<button id="btn4">요청 : Content-Type: "application/json"</button><br>
+<button id="btn5">요청</button><br>
+
+<!-- 속도를 위해 이쪽에 둔다. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+$("#btn1").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test07",{
+        method: 'POST',
+        headers: {
+           'Content-Type': 'text/plain'
+        }, 
+        data: "test...ok",
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+// 서버야 text있으면 text주고, 없으면 html줘!
+$("#btn2").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test07",{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/csv'
+            // data가 ,로 구분되어 있을 경우 csv 타입!
+        }, 
+        data: "hong,20,1111-1111",
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+$("#btn3").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test07",{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }, 
+        data: "name=hong&age=20&tel=1111-1111",
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+
+/* var obj = {
+        name: "aaa", // 프로퍼티 명 양쪽에 "" 붙이지 않아도 됨.
+        age: 20,
+        tel: '1111-1111'
+        'base-addr': '서울시 강남구'
+}
+ */
+// 자바스크립트에서 객체는 위와 같이, 더블 + 싱글 쿼티션 상관X
+// json 형식에서는 프로퍼티명에도 무조건 "" 붙여야 하며, 문자열은 반드시 싱글이 아닌 더블쿼티션을 붙여야 한다. 
+$("#btn4").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test07",{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' // Java Script Object Notation => json
+        }, 
+        data: '{"name":"hong","age":20,"tel":"1111-2222"}',
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+$("#btn5").click(()=>{
+    jQuery.ajax("http://localhost:8888/app/ex02/test07",{
+        method: 'POST',
+        data: {
+            name: "aaa",
+            age: 10,
+            tel: "2222-3333"
+        }, // content type 지정 안하면 기본이 application/x-www-form-urlencoded
+        success: (result) =>{
+            alert(result);
+        },
+        error:(xhr, status, msg)=>{
+            console.log(status);
+            console.log(msg);
+        }
+    });    
+});
+
+
+</script>
+</body>
+
+</html>

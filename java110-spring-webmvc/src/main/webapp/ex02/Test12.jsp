@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Test03 페이지 컨트롤러</h1>
+<h1>Test12 페이지 컨트롤러</h1>
 
 name : ${requestScope.name}<br> 
 age : ${requestScope.age}<br>
