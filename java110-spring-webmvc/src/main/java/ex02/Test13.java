@@ -1,4 +1,4 @@
-// request handler의 파라미터
+// request handler의 파라미터 II
 package ex02;
 
 import org.springframework.stereotype.Controller;

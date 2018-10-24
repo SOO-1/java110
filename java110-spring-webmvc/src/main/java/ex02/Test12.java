@@ -1,4 +1,4 @@
-// request handler의 파라미터
+// request handler의 파라미터 I
 package ex02;
 
 import java.util.Map;

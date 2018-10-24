@@ -1,10 +1,13 @@
 package ex02;
 
+import java.sql.Date; // yyyy-MM-dd형태로 나오기 때문에 sql로 !
+
 public class Car {
 
     String model;
     String maker;
     boolean auto;
+    Date createdDate;
     Engine engine;
 
     public String getModel() {
@@ -30,6 +33,12 @@ public class Car {
     }
     public void setEngine(Engine engine) {
         this.engine = engine;
+    }
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
     
 }
