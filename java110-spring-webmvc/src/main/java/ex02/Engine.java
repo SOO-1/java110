@@ -6,6 +6,14 @@ public class Engine {
     int cc;
     int valve;
     
+    public Engine() {}
+    
+    public Engine(String name, int cc, int valve) {
+        this.name = name;
+        this.cc = cc;
+        this.valve = valve;
+    }
+    
     public String getName() {
         return name;
     }
@@ -23,6 +31,11 @@ public class Engine {
     }
     public void setValve(int valve) {
         this.valve = valve;
+    }
+
+    @Override
+    public String toString() {
+        return "Engine [name=" + name + ", cc=" + cc + ", valve=" + valve + "]";
     }
     
 }
