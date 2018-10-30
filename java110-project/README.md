@@ -7,7 +7,9 @@
 - 작업
     - /WEB-INF/app-servlet.xml 프론트 컨트롤러 설정 파일 작성
     - InternalResourceViewResolver 로 교체
-    - /WEB-INF/
+    - /WEB-INF/web.xml에서 프론트 컨트롤러의 설정 파일 정보 지정하기
+    - JSP를 /WEB-INF/jsp/ 폴더로 옮긴다.
+    - 페이지 컨트롤러의 리턴 값을 변경한다.
 
 ##tag:v6.8
 - Spring 트랜잭션 적용하기

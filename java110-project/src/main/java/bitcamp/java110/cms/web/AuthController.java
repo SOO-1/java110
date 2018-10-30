@@ -5,8 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,15 +15,24 @@ import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService;
 
 @Controller
+@RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
     AuthService authService;
     
-    @RequestMapping("/auth/login")
+    public AuthController(AuthService authService) {
+        super();
+        this.authService = authService;
+    }
+
+    @GetMapping("form")
+    public void form() {
+    }
+
+    @PostMapping("login")
     public String login(
             // 파라미터명과 변수명이 같고, required가 필수가 아닐 경우에 생략 가능!
-            @RequestParam(value="type", required=false) String type,
+            @RequestParam(required=false) String type,
             String email,
             String password,
             String save,
@@ -30,10 +40,6 @@ public class AuthController {
             HttpServletResponse response,
             HttpSession session){
         
-        if(request.getMethod().equals("GET")) {
-            return "/auth/form.jsp";
-        }
-
         if (save != null) {// 이메일 저장하기를 체크했다면,
             Cookie cookie = new Cookie("email", email);
             cookie.setMaxAge(60 * 60 * 24 * 15);
@@ -66,15 +72,15 @@ public class AuthController {
             
         } else {
             session.invalidate();
-            return "redirect:login";
+            return "redirect:form";
         }
         
     }
-    @RequestMapping("/auth/logout")
+    @GetMapping("logout")
     public String logout(HttpSession session) {
 
         session.invalidate();
-        return "redirect:login";
+        return "redirect:form";
     }
 
 }

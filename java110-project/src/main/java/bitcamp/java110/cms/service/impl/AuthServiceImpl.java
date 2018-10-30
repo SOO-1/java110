@@ -11,7 +11,7 @@ import bitcamp.java110.cms.dao.TeacherDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService;
 
-@Service
+@Service //Component로 해도 되지만, component중 service의 역할을 한다는 것을 뚜렷히 하기 위해!
 public class AuthServiceImpl implements AuthService {
 
     @Autowired ManagerDao managerDao;
@@ -42,7 +42,6 @@ public class AuthServiceImpl implements AuthService {
     }
     
 }
-
 
 
 

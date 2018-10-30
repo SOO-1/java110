@@ -27,7 +27,7 @@ rd.include(request, response);
 <jsp:include page="../header.jsp"></jsp:include> <!-- 웹브라우저에서 페이지소스를 보면 출력되지 않음. 서버에서 실행 -->
 
 <h1>매니저 목록(MVC)</h1>
-<p><a href='add'>추가</a></p>
+<p><a href='form'>추가</a></p>
 <table>
 <thead>
 <tr>
