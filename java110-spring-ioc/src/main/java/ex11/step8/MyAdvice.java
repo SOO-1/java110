@@ -1,0 +1,35 @@
+
+package ex11.step8;
+
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
+
+@Component
+@Aspect
+public class MyAdvice {
+  
+    // xml의 pointcut에 있던 것을 괄호 안으로!
+    // xml보다 나음
+    @Before("execution(* ex11.step8.ServiceImpl.*(..)) and args(f)")
+    public void before(String f) {
+        
+        System.out.println("MyAdvice.before(): " + f);
+    }
+
+    @AfterReturning(
+            pointcut="execution(* ex11.step8.ServiceImpl.*(..))",
+            returning="rt")
+    public void afterReturning(Object rt) {
+        System.out.println("MyAdvice.afterReturning(): " + rt.toString());
+    }
+    
+    @AfterThrowing(
+            pointcut="execution(* ex11.step8.ServiceImpl.*(..))",
+            throwing="err")
+    public void afterThrowing(Exception err) {
+        System.out.println("MyAdvice.afterThrowing(): " + err.getMessage());
+    }
+}
