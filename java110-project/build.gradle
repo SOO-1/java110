@@ -20,7 +20,6 @@ dependencies {
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     // 컴파일할 때만 사용하고, 대치할 때는 제외. 톰캣서버에 이미 있어서 그걸로 쓸거임.서버에 배포할 때 얘는 배포되지 않음.
     
-    
     compile group: 'org.mybatis', name: 'mybatis', version: '3.4.6'
     
     // JSTL 구현 라이브러리
@@ -47,6 +46,9 @@ dependencies {
     
     // Apache Common DBCP 라이브러리
     compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+    
+    // AOP 라이브러리
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
     
     compile 'com.google.guava:guava:23.0'
     testCompile 'junit:junit:4.12'

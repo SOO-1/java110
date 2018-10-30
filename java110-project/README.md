@@ -1,6 +1,14 @@
 # java110
 
 비트캠프 자바110기 실습 프로젝트
+
+##tag:v6.9
+- Spring WebMVC 정리
+- 작업
+    - /WEB-INF/app-servlet.xml 프론트 컨트롤러 설정 파일 작성
+    - InternalResourceViewResolver 로 교체
+    - /WEB-INF/
+
 ##tag:v6.8
 - Spring 트랜잭션 적용하기
     - 스프링 트랜잭션은 AOP 기술을 사용한다.
