@@ -27,7 +27,7 @@ public class Test02 {
         
         System.out.println("==============================");
         
-//        Car3 c1 = (Car3)iocContainer.getBean(car3);.. 돼야하는데 안되는듯
+//        Car3 c1 = (Car3)iocContainer.getBean("car3"); 
         Car3 c1 = (Car3)iocContainer.getBean(Car3.class); // 타입으로 찾기
         System.out.println(c1);
       

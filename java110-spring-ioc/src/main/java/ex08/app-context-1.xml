@@ -13,7 +13,7 @@
         <property name="maker" value="비트자동차"/>
     </bean>
     
-      
+     <!-- Car에서 setEngine에 @Autowired 애노테이션으로 Engine 꽂아줌. --> 
     <bean id="e1" class="ex08.Engine">
         <property name="maker" value="캠프자동차"></property>
         <property name="valve" value="32"></property>
@@ -31,5 +31,4 @@
     
     <!-- 다음 클래스는 그냥 아무것도 안한다. 그냥 호출되는지 확인하기 위해 만들었다. -->
     <bean class="ex08.MyBeanPostProcessor"/>
-  
 </beans>

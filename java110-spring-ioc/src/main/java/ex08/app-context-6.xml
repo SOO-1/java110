@@ -27,5 +27,7 @@
         <property name="valve" value="16"></property>
         <property name="diesel" value="true"></property>
     </bean>
+    <!-- Engine에 대하여 @Autowired와 @Qualifier 두가지를 모두 꽂아준 방법과 달리
+                       두 가지의 기능을 하는 @Resource 하나를 꽂아주었다.-->
     
 </beans>

@@ -36,6 +36,7 @@
         
     <!-- 파라미터 값으로 객체를 주입하기 II
             => <bean> 태그를 이용하여 새 객체를 만들어 주입할 수 있다. 
+            Engine이 먼저 생성(?)
     -->
       <bean id="c4" class="ex04.Car">
         <constructor-arg value="자바120"/>

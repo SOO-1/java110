@@ -3,6 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- static을 사용하는 CarFactory1, app-context2.xml과 
+                        다르기 때문에, bean을 생성하고, factory-bean에 연결한다.
+    -->
     
     <!-- IoC컨테이너.보관("factory", new CarFactory2()); -->
     <bean class="ex01.CarFactory2" id="factory"/>
@@ -11,5 +14,10 @@
     <bean factory-bean="factory" factory-method="create" id="c1">
         <constructor-arg value="그랜저"/>
     </bean>
+
+    <bean factory-bean="factory" factory-method="create" name="c2">
+        <constructor-arg value="소나타"/>
+    </bean>
+
         
 </beans>

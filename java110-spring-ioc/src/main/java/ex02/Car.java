@@ -11,7 +11,7 @@ public class Car {
     private Date createdDate;
     
     public Car() {
-        System.out.println("Car() 호출됨");
+        System.out.println("Car()! 호출됨");
     }
     
     public Car(String model, int cc) {

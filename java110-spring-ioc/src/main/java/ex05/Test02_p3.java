@@ -39,10 +39,10 @@ public class Test02_p3 {
         
         // hashset에서 중복되게 나오던 것을 hashcode값을 같게하여 중복 없앰
         // 보통 equals와 hashCode는 둘이 함께오버라이딩 함.
-        @Override 
-        public int hashCode() {
-            return this.toString().hashCode();
-        }
+//        @Override 
+//        public int hashCode() {
+//            return this.toString().hashCode();
+//        }
     }
     
     public static void main(String[] args) {

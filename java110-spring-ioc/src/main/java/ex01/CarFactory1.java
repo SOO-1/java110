@@ -2,6 +2,7 @@ package ex01;
 
 import java.sql.Date;
 
+// static factory 메소드 로 객체를 생성하는 클래스 => Bean이 관리하기 어려움
 public class CarFactory1 {
     
     public static Car create(String model) {

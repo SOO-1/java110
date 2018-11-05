@@ -28,14 +28,14 @@
         <property name="height" value="65"/>
     </bean>
     
-    <bean id="c1" class="ex05.Car">
-        <property name="tires">
+<!--     <bean id="c1" class="ex05.Car"> 1
+        <property name="tires"> 3
             <set>
                 <ref bean="t1"/>
                 <ref bean="t2"/>
                 <ref bean="t3"/>
                 <ref bean="t4"/>
-			    <bean class="ex05.Tire">
+			    <bean class="ex05.Tire"> 2
 			        <property name="maker" value="비트타이어"/>
 			        <property name="width" value="140"/>
 			        <property name="height" value="65"/>
@@ -43,32 +43,40 @@
             </set>
         </property>
     </bean>
-
-<!-- 
-    <bean id="c1" class="ex05.Car">
-        <property name="cds">
-            <array>
-                <ref bean="cd1"/> 기존의 CD객체 주소를 설정해도 되고
-                <ref bean="cd2"/>
-                <bean class="ex05.CD"> 즉시 CD 객체를 만들어 설정할 수 있다.
-                    <property name="title" value="헐!"/>
-                    <property name="publisher" value="비트뮤직"/>
-                </bean>
-            </array>
-        </property>
-        
+ -->
+    <bean id="cd1" class="ex05.CD">
+        <property name="title" value="흠!"/>
+        <property name="publisher" value="둠칫두둠칫"/>
     </bean>
-     <bean id="c2" class="ex05.Car">
+    <bean id="cd2" class="ex05.CD">
+        <property name="title" value="하!"/>
+        <property name="publisher" value="뜌스뜌스"/>
+    </bean>
+    
+     <bean id="c1" class="ex05.Car">
         <property name="cds">
             <list>
-                <ref bean="cd1"/> 기존의 CD객체 주소를 설정해도 되고
+                <ref bean="cd1"/> <!-- 기존의 CD객체 주소를 설정해도 되고 -->
                 <ref bean="cd2"/>
-                <bean class="ex05.CD"> 즉시 CD 객체를 만들어 설정할 수 있다.
+                <bean class="ex05.CD"> <!-- 즉시 CD 객체를 만들어 설정할 수 있다. -->
                     <property name="title" value="헐!"/>
                     <property name="publisher" value="비트뮤직"/>
                 </bean>
             </list>
         </property>
     </bean>
-  -->      
+
+     <bean id="c2" class="ex05.Car">
+        <property name="cds">
+            <list>
+                <ref bean="cd1"/> <!-- 기존의 CD객체 주소를 설정해도 되고 -->
+                <ref bean="cd2"/>
+                <bean class="ex05.CD"> <!-- 즉시 CD 객체를 만들어 설정할 수 있다. -->
+                    <property name="title" value="헐!"/>
+                    <property name="publisher" value="비트뮤직"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+       
 </beans>

@@ -10,6 +10,17 @@
         <property name="maker" value="비트자동차"/>
         <property name="createdDate" value="2018-10-18"/>
     </bean>
+    <!-- 
+	    Car() 호출됨
+		DatePropertyEditor() 호출됨!  =>???
+		EnginePropertyEditor() 호출됨!
+		DatePropertyEditor.setAsText(String)
+		DatePropertyEditor.getValue()
+		Car.setModel() 호출됨!
+		Car.setCc() 호출됨!
+		Car.setMaker() 호출됨!
+		Car.setCreatedDate() 호출됨!  
+     -->
   
       <bean id="c2" class="ex07.Car">
         <property name="model" value="티코"/>

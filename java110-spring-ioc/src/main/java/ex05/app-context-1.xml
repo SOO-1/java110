@@ -52,6 +52,7 @@
                         컨테이너.보관("c4",obj);
      -->
  
+    <!-- 이 안에 들어가는 엔진bean은 빈의 갯수에 들어가지 않음! => 속성처럼 -->
     <bean id="c5" class="ex05.Car">
         <property name="model" value="트럭3"/>
         <property name="cc" value="10000"/>

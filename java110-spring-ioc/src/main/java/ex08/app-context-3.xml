@@ -14,7 +14,8 @@
         <property name="cc" value="1980"/>
         <property name="maker" value="비트자동차"/>
     </bean>
-    
+    <!-- Car에서 setEngine에 @Autowired를 붙인 app-context-1과 달리,
+        Car2에서는 필드에 애노테이션을 붙임-->
       
     <bean id="e1" class="ex08.Engine">
         <property name="maker" value="캠프자동차"></property>

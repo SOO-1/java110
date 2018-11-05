@@ -1,5 +1,5 @@
 package ex06;
-
+//"static" 메서드
 public class EngineFactory1 {
 
     public static Engine create(String model) {

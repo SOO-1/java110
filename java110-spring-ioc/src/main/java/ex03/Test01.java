@@ -23,11 +23,11 @@ public class Test01 {
         int count = iocContainer.getBeanDefinitionCount();
         System.out.printf("bean 갯수 = %d\n", count);
         
-        String[] names = iocContainer.getBeanDefinitionNames();
+        String[] names = iocContainer.getBeanDefinitionNames(); // bean의 id
         for(String name : names) {
             System.out.printf("==> %s : %s\n",
                     name, 
-                    iocContainer.getType(name).getName());
+                    iocContainer.getType(name).getName()); // iocContainer.getType(name): class ex03.Car
         }
         
     }

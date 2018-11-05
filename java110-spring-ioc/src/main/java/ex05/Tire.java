@@ -6,6 +6,10 @@ public class Tire {
     private int width;
     private int height;
     
+    public Tire() {
+        System.out.println("Tire() 호출됨!");
+    }
+    
     public String getMaker() {
         return maker;
     }

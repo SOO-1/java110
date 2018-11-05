@@ -1,0 +1,24 @@
+  CREATE DATABASE projectdb
+  CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+
+  CREATE USER 'project'@'localhost' IDENTIFIED BY '1111';
+  CREATE USER 'project'@'%' IDENTIFIED BY '1111';
+  
+  select host, user from mysql.user;    
+  
+  GRANT ALL ON projectdb.* TO 'project'@'localhost';
+  GRANT ALL ON projectdb.* TO 'project'@'%';        //원격에서 가능하게! 원래는 원격에서 풀어놓으면 해킹당함.
+  
+  
+  CREATE DATABASE studydb
+  CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+
+  CREATE USER 'study'@'localhost' IDENTIFIED BY '1111';
+  CREATE USER 'study'@'%' IDENTIFIED BY '1111';
+  
+  select host, user from mysql.user;    
+  
+  GRANT ALL ON studydb.* TO 'study'@'localhost';
+  GRANT ALL ON studydb.* TO 'study'@'%'; 

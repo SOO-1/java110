@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
     
+    <!-- property name은 setter라고 생각 -->
      <bean id="e1" class="ex04.Engine">
         <property name="maker" value="비트자동차"/>
         <property name="valve" value="16"/>
@@ -13,6 +14,8 @@
     <bean id="c1" class="ex04.Car"
           c:model="2018" c:cc="1980"/>
 
+    <!-- cc, model순서의 생성자는 없지만,
+                     각 파라미터명으로 찾아 알맞은 생성자를 호출한다.-->
     <bean id="c2" class="ex04.Car"
           c:cc="1980" c:model="2018"/>
 

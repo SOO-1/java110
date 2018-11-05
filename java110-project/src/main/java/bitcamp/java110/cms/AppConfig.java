@@ -31,7 +31,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //            type=FilterType.REGEX, //regular expression
 //            pattern="bitcamp.java110.cms.web.*"
 //        ))  // ""패키지에서 @repository, service, controller와 같은것 찾게 됨.
-@PropertySource("classpath:/bitcamp/java110/cms/conf/jdbc.properties")
+@PropertySource(
+        {"classpath:/bitcamp/java110/cms/conf/jdbc.properties",
+         "classpath:/bitcamp/java110/cms/conf/sec.properties"   
+        })
 @MapperScan("bitcamp.java110.cms.dao")
 
 // 트랜잭션 관리자를 활성화 하려면 다음 애노테이션을 붙여야 한다.

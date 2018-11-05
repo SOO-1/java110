@@ -27,5 +27,6 @@
         <property name="valve" value="16"></property>
         <property name="diesel" value="true"></property>
     </bean>
-    
+    <!-- Car3에서 Engine에 대해 @Qualifier("e2")를 지정하여 
+                     여러개의 Engine 객체 중 특정한 것을 주입하도록 하였다. -->
 </beans>

@@ -37,7 +37,7 @@ public class Test02 {
         Car c1 = (Car)iocContainer.getBean("c1");
         System.out.println(c1);
         
-/*        Car c2 = (Car)iocContainer.getBean("c2");
+        Car c2 = (Car)iocContainer.getBean("c2");
         System.out.println(c2);
         
         if(c1.getCds()[2] == c2.getCds()[2]) {
@@ -45,15 +45,15 @@ public class Test02 {
         }else {
             System.out.println("c1.cds[2] != c2.cds[2]");
         }
-*/
-/*        Car c3 = (Car)iocContainer.getBean("c3");
-        System.out.println(c3);
-
-        Car c4 = (Car)iocContainer.getBean("c4");
-        System.out.println(c4);
         
-        Car c5 = (Car)iocContainer.getBean("c5");
-        System.out.println(c5);
-*/
+        if(c1.getCds()[2].equals(c2.getCds()[2])) {
+            System.out.println("c1.cds[2] == c2.cds[2]");
+        }else {
+            System.out.println("c1.cds[2] != c2.cds[2]");
+        }
+        
+        System.out.println(c1.getCds()[2]);
+        System.out.println(c2.getCds()[2]);
+
     }
 }

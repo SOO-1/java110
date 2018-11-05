@@ -18,20 +18,23 @@ public class Car {
     public Car(String model, int cc) {
         this.model = model;
         this.cc = cc;
-        System.out.println("Car(String, int) 호출됨");
+//        System.out.println("Car(String, int) 호출됨");
+        System.out.println("Car(model, cc) 호출됨");
     }
     
     public Car(int cc, String maker) {
         this.maker = maker;
         this.cc = cc;
-        System.out.println("Car(int, String) 호출됨");
+//        System.out.println("Car(int, String) 호출됨");
+        System.out.println("Car(cc, maker) 호출됨");
     }
 
     public Car(String model, int cc, Engine engine) {
         this.model = model;
         this.cc = cc;
         this.engine = engine;
-        System.out.println("Car(String, int, Engine) 호출됨");
+//        System.out.println("Car(String, int, Engine) 호출됨");
+        System.out.println("Car(model, cc, engine) 호출됨");
     }
     
     public int getNo() {

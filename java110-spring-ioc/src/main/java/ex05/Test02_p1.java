@@ -27,6 +27,7 @@ public class Test02_p1 {
         // 2) Object에서 상속 받은 equals() 메서드는 == 연산자와 같다.
         if(obj1.equals(obj2)) System.out.println("obj1 == obj2");
         else System.out.println("obj1 != obj2");
+        
                
     }
 }

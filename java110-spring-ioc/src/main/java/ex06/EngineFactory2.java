@@ -4,6 +4,7 @@ public class EngineFactory2 {
 
     public Engine create(String model) {
 
+        System.out.println("EngineFactory2() 호출됨!");
         Engine e = new Engine();
 
         switch(model) {

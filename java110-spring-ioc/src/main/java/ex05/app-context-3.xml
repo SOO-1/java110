@@ -3,6 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <!-- list나 array 둘 다 기능적 차이X..? -->
  
     <!-- list는 중복을 허용! -->
     <bean id="cd1" class="ex05.CD">

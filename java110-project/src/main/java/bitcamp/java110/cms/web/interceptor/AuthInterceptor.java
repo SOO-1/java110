@@ -19,7 +19,7 @@ public class AuthInterceptor implements HandlerInterceptor{
         // 로그인 했는지 세션검사
         HttpSession session = request.getSession();
         if(session.getAttribute("loginUser") == null) { // 로그인 하지 않았으면
-            response.sendRedirect("/app/auth/form"); 
+            response.sendRedirect("/app/auth/form"); // 웹브라우저에게 알려주는 경로
             return false; // 페이지 컨트롤러의 request handler를 실행하지 말라!
         }
         return true;
