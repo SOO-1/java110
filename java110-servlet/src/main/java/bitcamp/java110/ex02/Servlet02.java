@@ -18,7 +18,7 @@ public class Servlet02 extends GenericServlet {
     ServletConfig config;
         
     public Servlet02() {
-        System.out.println("Servlet01() 호출됨");
+        System.out.println("Servlet02() 호출됨");
     }
 
     @Override

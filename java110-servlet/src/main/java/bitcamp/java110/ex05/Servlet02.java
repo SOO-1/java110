@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // GenericServlet을 직접 상속 받는 것 보다
-// MyHttpServlet 클래스를 상속 받으면
+// MyHttpServlet 클래스를 상속 받으면 (MyHttpServlet은 GenericServlet을 상속받았고, 이를 확장한 HttpServlet과 유사하게 만들었다)
 // HttpServletRequest와 HttpServletResponse를 파라미터로 받는
 // service()를 오버라이딩 할 수 있다. 그래서 프로그래밍 하기 편하다!
 //
@@ -35,14 +35,14 @@ public class Servlet02 extends MyHttpServlet {
 
             String method = req.getMethod();
             
-/*            if(method.equals("GET")) {
+            if(method.equals("GET")) {
                 out.println("GET 요청입니다.");
             }else if(method.equals("POST")) {
                 out.println("POST 요청입니다.");
             }else {
                 out.println("기타 요청입니다.");
             }
-*/    
+    
     }
 
 

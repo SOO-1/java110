@@ -59,20 +59,21 @@ public class Servlet03 extends GenericServlet {
                     parts.put(item.getFieldName(),
                             item.getString("UTF-8"));   //저장할 때 사용한 파일명
                     
-/*                    
+                    System.out.println("일반데이터"); //=> name, age, working
 //                    parts.put(item.getFieldName(), item.getString("UTF-8"));    //=>hashmap에 저장해서 필요한것 뽑아씀
                       System.out.printf("%s=%s\n"   //=> 바로 출력
                             ,item.getFieldName()    // 파라미터 명
                             ,item.getString("UTF-8"));     // 파라미터 값, utf8로 지정해야 한글이 깨지지 않음
-*/                }else {// 파일
+                      System.out.println("=========");
+                }else {// 파일
                     String filename = UUID.randomUUID().toString();
                     parts.put(item.getFieldName(), item.getName());
-/*                    System.out.printf("%s=%s\n"
+                    System.out.printf("%s=%s\n"
                             ,item.getFieldName()    // 파라미터 명
                             ,item.getName());       // 파일 명
 //                    String path = this.getServletContext()
 //                            .getRealPath("/upload/"+item.getName());
-*/                  
+                  
                     
                     String path = this.getServletContext()
                             .getRealPath("/upload/"+filename);                    

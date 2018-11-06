@@ -82,6 +82,48 @@ public class AuthController {
         session.invalidate();
         return "redirect:form";
     }
+    
+    @RequestMapping("fblogin") //get, post둘다 처리하도록 request로 바꿈
+    public String fblogin(
+            String accessToken,
+            String type,
+            HttpServletResponse response,
+            HttpSession session){
+        
+/*      Member loginUser = authService.getFacebookMember(accessToken, type);
+      System.out.println(accessToken);
+      System.out.println(type);
+      
+      return "redirect:../student/list";
+*/      try {
+
+        Member loginUser = authService.getFacebookMember(accessToken, type);
+            // 회원 정보를 세션에 보관한다.
+            session.setAttribute("loginUser", loginUser);
+            String redirectUrl = null;
+            
+            switch(type) {
+            case "student":
+                redirectUrl = "../student/list";
+                break;
+            case "manager":
+                redirectUrl = "../manager/list";
+                break;
+            case "teacher":
+                redirectUrl = "../teacher/list";
+                break;
+            }
+            return "redirect:"+redirectUrl;
+            
+        } catch(Exception e) {
+            e.printStackTrace();
+            session.invalidate();
+            return "redirect:form";
+            
+        }
+        
+    }
+
 
 }
 

@@ -17,6 +17,13 @@ public class Member implements Serializable{
     
     //getName() =getter, setName() =setter       =>operator/accessor/property/message
     //인스턴스의 메모리를 다루는 연산자(operator=setter&getter=accessor=property=message)
+    
+    @Override
+    public String toString() {
+      return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password
+          + ", tel=" + tel + ", photo=" + photo + "]";
+    }
+
     public String getTel() {
         return tel;
     }

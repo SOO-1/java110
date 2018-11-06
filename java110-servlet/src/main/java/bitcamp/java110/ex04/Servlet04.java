@@ -42,6 +42,7 @@ public class Servlet04 extends GenericServlet {
         part = httpReq.getPart("file2");
         if(part.getSize() > 0) {
             file2name = UUID.randomUUID().toString();
+            //part를 servlet보관소에서 가져와서 file2name에 part를 적어 
         part.write(this.getServletContext().getRealPath("/upload/"+file2name));
         }
         res.setContentType("text/plain;charset=UTF-8");

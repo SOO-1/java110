@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>동기 요청의 문제점</h1>
+<button id="btn1" type="button">동기 요청하기</button><br>
+<button id="btn2" type="button">테스트 버튼</button><br>
+<button id="btn3" type="button">비동기 요청하기</button><br>
+
+<!-- 속도를 위해 이쪽에 둔다. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+ 
+$("#btn1").click(()=>{
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'test23.jsp', false); // 동기요청
+    xhr.send();
+    console.log(xhr.responseText);
+    
+});
+/* 
+    Inversion Of Control
+    - 의존객체 주입
+    - 아래와 같은 상황
+*/
+
+$("#btn3").click(()=>{
+    
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){ // 비동기요청
+        if(xhr.readyState == XMLHttpRequest.Done){ // 서버에서 응답하면 호출된다. 프로그램의 흐름을 역행. Inversion Of Control
+            console.log(xhr.responseText);
+        }
+    };
+        xhr.open('GET', 'test23.jsp', true); // 비동기요청
+	    xhr.send();
+});
+
+</script>
+</body>
+
+</html>

@@ -31,7 +31,17 @@ public class Servlet04 extends HttpServlet {
             out.println("GET 요청입니다.");
             
     }
+/*
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
 
+      resp.setContentType("text/plain;charset=UTF-8");
+      PrintWriter out = resp.getWriter();
+      out.println("POST 요청입니다.");
 
+    }
+    // 오버라이딩 하지 않았다면, 예외발생
+*/
 }
 

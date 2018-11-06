@@ -29,7 +29,7 @@ public class Servlet01 extends GenericServlet {
         boolean working = Boolean.parseBoolean(
                 req.getParameter("working"));
         
-        res.setContentType("text.plain;charset=UTF-8");
+        res.setContentType("text/plain;charset=UTF-8");
         
         PrintWriter out = res.getWriter();
         

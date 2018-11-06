@@ -28,7 +28,7 @@ public class Servlet04 extends GenericServlet {
         // ServletContext 객체를 통해 현재 웹 애플리케이션의 실제 경로를 알아낸다.
         String filepath = ctx.getRealPath("/WEB-INF/p2.jpg");    //req.getRealPath는 deprecated되었으니 이렇게사용.
 
-        res.setContentType("image/jpeg;");
+        res.setContentType("image/jpeg");
         // binary이기 때문에 printwriter로 받을 수 없음!
 
         try(        

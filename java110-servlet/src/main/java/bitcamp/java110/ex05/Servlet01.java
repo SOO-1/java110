@@ -31,7 +31,7 @@ public class Servlet01 extends GenericServlet {
         // 따라서 원래의 타입인 HttpServletRequest로 변환해야만 가능하다.
         
         HttpServletRequest httpReq = (HttpServletRequest)req;
-        String method = httpReq.getMethod();
+        String method = httpReq.getMethod(); // request의 타입을 string으로 반환하여 method에 저장
         
         if(method.equals("GET")) {
             out.println("GET 요청입니다.");
